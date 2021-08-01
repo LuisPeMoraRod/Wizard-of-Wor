@@ -19,4 +19,8 @@
 
 #define PK_BLINK 0.3 //blink time of Press Key image
 
+//blocks
+#define B_WIDTH 10
+#define B_HEIGHT 10
+
 #endif //CONSTANTS_H

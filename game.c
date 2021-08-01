@@ -1,4 +1,5 @@
 #include "game.h"
+
 /**
  * Creates game window
  */
@@ -43,6 +44,12 @@ void game_loop(SDL_Window ** main_window_pp, SDL_Renderer **renderer_pp, SDL_Tex
     //Event handler
     SDL_Event event;
 
+    //initialize global variables
+    first_block = NULL;
+    last_block = NULL;
+    map0();
+    
+
     //While application is running
     while( !quit )
     {
@@ -51,6 +58,9 @@ void game_loop(SDL_Window ** main_window_pp, SDL_Renderer **renderer_pp, SDL_Tex
 
         //Render background_texture to screen
         SDL_RenderCopy(renderer, background_texture, NULL, NULL );
+        
+        //Render map
+        render_blocks(renderer_pp);
 
         //Update screen
         SDL_RenderPresent(renderer);
@@ -72,7 +82,7 @@ void game_loop(SDL_Window ** main_window_pp, SDL_Renderer **renderer_pp, SDL_Tex
             }
             if( event.type == SDL_KEYDOWN) 
             {
-
+                
             }
         }
 
