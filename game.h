@@ -3,6 +3,7 @@
 
 #include "graphics.h"
 #include "maps.h"
+#include "warrior.h"
 
 //global variables to handle data structures
 struct block *first_block;

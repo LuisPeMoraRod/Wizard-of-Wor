@@ -7,13 +7,16 @@ void map0(){
 
     wall_right(&x, y, &block, 6);
     wall_up(x, &y, &block, 19);
-    wall_right(&x, y, &block, 84);
+    wall_right(&x, y, &block, 83);
     wall_down(x, &y, &block, 19);
-    wall_right(&x, y, &block, 6);
+    wall_right(&x, y, &block, 7);
 
     x = -10; y = 260;
     wall_right(&x, y, &block, 19);
     wall_up(x, &y, &block, 6);
+
+    x = 120; y += 10;
+    wall_up(x, &y, &block, 13);
 
 }
 
