@@ -11,6 +11,7 @@ struct warrior{
     SDL_Texture *right0;
     SDL_Texture *right1;
     SDL_Texture *right2;
+    SDL_Texture *right3;
     SDL_Texture *left0;
     SDL_Texture *left1;
     SDL_Texture *left2;

@@ -27,6 +27,10 @@ struct warrior *create_warrior(SDL_Renderer **renderer_pp)
     warrior_txtr = load_texture(renderer_pp, warrior_path);
     new_warrior->right2 = warrior_txtr;
 
+    warrior_path = WARRIOR_R3;
+    warrior_txtr = load_texture(renderer_pp, warrior_path);
+    new_warrior->right3 = warrior_txtr;
+
     warrior_path = WARRIOR_L0;
     warrior_txtr = load_texture(renderer_pp, warrior_path);
     new_warrior->left0 = warrior_txtr;
@@ -85,6 +89,36 @@ void move_right(struct warrior **warrior_pp)
     if (!collision_wall(x, y, &first_block))
     {
         warrior_ptr->pos.x = x;
+        warrior_ptr->up = true;
+
+        int sprite = warrior_ptr->current_sprite;
+        switch (sprite) //change sprite for visual movement effect
+        {
+        case RIGHT_0:
+            warrior_ptr->current_sprite = RIGHT_1;
+            warrior_ptr->current_txtr = warrior_ptr->right1;
+            break;
+
+        case RIGHT_1:
+            warrior_ptr->current_sprite = RIGHT_2;
+            warrior_ptr->current_txtr = warrior_ptr->right2;
+            break;
+
+        case RIGHT_2:
+            warrior_ptr->current_sprite = RIGHT_3;
+            warrior_ptr->current_txtr = warrior_ptr->right3;
+            break;
+
+        case RIGHT_3:
+            warrior_ptr->current_sprite = RIGHT_0;
+            warrior_ptr->current_txtr = warrior_ptr->right0;
+            break;
+        
+        default:
+            warrior_ptr->current_sprite = RIGHT_0;
+            warrior_ptr->current_txtr = warrior_ptr->right0;
+            break;
+        }
     }
 }
 
@@ -143,15 +177,18 @@ void move_down(struct warrior **warrior_pp)
 bool collision_wall(int x, int y, struct block **block_pp)
 {
     struct block *block_tmp = *block_pp;
-    if (block_tmp->next_block == NULL) //stop recursion
+    if (block_tmp == NULL) //stop recursion
         return false;
     else
     {
-        if (wor_collision_r(x, block_tmp->pos_x) || wor_collision_l(x, block_tmp->pos_x))
-        {                                                                                     //collision in x
+        if (wor_collision_r(x, block_tmp->pos_x) || wor_collision_l(x, block_tmp->pos_x)) //collision in x
             if (wor_collision_u(y, block_tmp->pos_y) || wor_collision_d(y, block_tmp->pos_y)) //collision in y
                 return true;
-        }
+
+        if (blk_collision_r(x, block_tmp->pos_x) || blk_collision_l(x, block_tmp->pos_x)) //collision in x with single block row
+            if (blk_collision_u(y, block_tmp->pos_y) || blk_collision_d(y, block_tmp->pos_y)) //collision in y with single block column
+                return true;
+
         return collision_wall(x, y, &block_tmp->next_block); //recursive call to compare next block in linked list
     }
 }
@@ -208,4 +245,35 @@ bool blk_collision_r(int x_wor, int x_block)
 {
     int x = x_block + B_WIDTH;
     return (x >= x_wor) && (x <= (x_wor + WOR_WIDTH));
+}
+
+/**
+ *Checks if left side of block collides with wor
+ *@param int x_wor
+ *@param int x_block
+ */
+bool blk_collision_l(int x_wor, int x_block)
+{
+    return (x_block >= x_wor) && (x_block <= (x_wor + WOR_WIDTH));
+}
+
+/**
+ *Checks if top side of block collides with wor
+ *@param int y_wor
+ *@param int y_block
+ */
+bool blk_collision_u(int y_wor, int y_block)
+{
+    return (y_block >= y_wor) && (y_block <= (y_wor + WOR_HEIGHT));
+}
+
+/**
+ *Checks if bottom side of block collides with wor
+ *@param int y_wor
+ *@param int y_block
+ */
+bool blk_collision_d(int y_wor, int y_block)
+{
+    int y = y_block + B_HEIGHT;
+    return (y >= y_wor) && (y_block <= (y_wor + WOR_HEIGHT));
 }

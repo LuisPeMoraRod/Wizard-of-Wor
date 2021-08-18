@@ -9,6 +9,7 @@
 #define WARRIOR_R0 "resources/warrior/warrior_r0.png"
 #define WARRIOR_R1 "resources/warrior/warrior_r1.png"
 #define WARRIOR_R2 "resources/warrior/warrior_r2.png"
+#define WARRIOR_R3 "resources/warrior/warrior_r3.png"
 #define WARRIOR_L0 "resources/warrior/warrior_l0.png"
 #define WARRIOR_L1 "resources/warrior/warrior_l1.png"
 #define WARRIOR_L2 "resources/warrior/warrior_l2.png"
@@ -50,6 +51,7 @@ enum WOR_Sprites{
     RIGHT_0, 
     RIGHT_1, 
     RIGHT_2,
+    RIGHT_3,
     LEFT_0,
     LEFT_1, 
     LEFT_2,
