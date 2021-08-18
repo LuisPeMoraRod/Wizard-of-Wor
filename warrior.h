@@ -29,4 +29,18 @@ struct warrior{
 };
 
 struct warrior * create_warrior(SDL_Renderer **renderer_pp);
+void move_right(struct warrior ** warrior_pp);
+void move_left(struct warrior ** warrior_pp);
+void move_up(struct warrior ** warrior_pp);
+void move_down(struct warrior ** warrior_pp);
+bool collision_wall(int x, int y, struct block **block_pp);
+bool wor_collision_r(int x_wor, int x_block);
+bool wor_collision_l(int x_wor, int x_block);
+bool wor_collision_u(int y_wor, int y_block);
+bool wor_collision_d(int y_wor, int y_block);
+bool blk_collision_r(int x_wor, int x_block);
+bool blk_collision_l(int x_wor, int x_block);
+bool blk_collision_u(int y_wor, int y_block);
+bool blk_collision_d(int y_wor, int y_block);
+
 #endif //WARRIOR_H

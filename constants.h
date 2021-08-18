@@ -19,7 +19,6 @@
 #define WARRIOR_D1 "resources/warrior/warrior_d1.png"
 #define WARRIOR_D2 "resources/warrior/warrior_d2.png"
 
-
 #define WIN_WIDTH 960 //window frame width
 #define WIN_HEIGHT 600 //window frame height
 #define MAX_PATH 30
@@ -39,11 +38,12 @@
 
 //initial warrior position
 #define WOR_X0 0
-#define WOR_Y0 210
+#define WOR_Y0 211
 
 //warrior image dimentions
-#define WOR_WIDTH 50
-#define WOR_HEIGHT 50
+#define WOR_WIDTH 42
+#define WOR_HEIGHT 48
+#define MOVE 5
 
 //handle movement effects by alternating sprites
 enum WOR_Sprites{

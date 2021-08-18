@@ -57,6 +57,44 @@ void game_loop(SDL_Window ** main_window_pp, SDL_Renderer **renderer_pp, SDL_Tex
     //While application is running
     while( !quit )
     {
+        //Handle events on queue
+        while(SDL_PollEvent( &event ) != 0 )
+        {
+            if (event.type == SDL_WINDOWEVENT
+                && event.window.event == SDL_WINDOWEVENT_CLOSE)
+            {
+
+                if (SDL_GetWindowID(*main_window_pp) == event.window.windowID)
+                {
+                    quit = true;
+                }
+            }
+            if( event.type == SDL_KEYDOWN) 
+            {
+                switch (event.key.keysym.sym)
+                {
+                case SDLK_d:
+                    move_right(&player);
+                    break;
+
+                case SDLK_a:
+                    move_left(&player);
+                    break;
+
+                case SDLK_w:
+                    move_up(&player);
+                    break;
+                    
+                case SDLK_s:
+                    move_down(&player);
+                    break;
+                
+                default:
+                    break;
+                }
+            }
+        }
+        
         //Clear screen
         SDL_RenderClear(renderer);
 
@@ -75,24 +113,6 @@ void game_loop(SDL_Window ** main_window_pp, SDL_Renderer **renderer_pp, SDL_Tex
 
         //Game update delay
         SDL_Delay( DELAY ); 
-
-        //Handle events on queue
-        while(SDL_PollEvent( &event ) != 0 )
-        {
-            if (event.type == SDL_WINDOWEVENT
-                && event.window.event == SDL_WINDOWEVENT_CLOSE)
-            {
-
-                if (SDL_GetWindowID(*main_window_pp) == event.window.windowID)
-                {
-                    quit = true;
-                }
-            }
-            if( event.type == SDL_KEYDOWN) 
-            {
-                
-            }
-        }
 
     }
 }
