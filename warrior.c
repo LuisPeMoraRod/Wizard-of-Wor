@@ -43,6 +43,10 @@ struct warrior *create_warrior(SDL_Renderer **renderer_pp)
     warrior_txtr = load_texture(renderer_pp, warrior_path);
     new_warrior->left2 = warrior_txtr;
 
+    warrior_path = WARRIOR_L3;
+    warrior_txtr = load_texture(renderer_pp, warrior_path);
+    new_warrior->left3 = warrior_txtr;
+
     warrior_path = WARRIOR_U0;
     warrior_txtr = load_texture(renderer_pp, warrior_path);
     new_warrior->up0 = warrior_txtr;
@@ -54,6 +58,10 @@ struct warrior *create_warrior(SDL_Renderer **renderer_pp)
     warrior_path = WARRIOR_U2;
     warrior_txtr = load_texture(renderer_pp, warrior_path);
     new_warrior->up2 = warrior_txtr;
+
+    warrior_path = WARRIOR_U3;
+    warrior_txtr = load_texture(renderer_pp, warrior_path);
+    new_warrior->up3 = warrior_txtr;
 
     warrior_path = WARRIOR_D0;
     warrior_txtr = load_texture(renderer_pp, warrior_path);
@@ -67,6 +75,10 @@ struct warrior *create_warrior(SDL_Renderer **renderer_pp)
     warrior_txtr = load_texture(renderer_pp, warrior_path);
     new_warrior->down2 = warrior_txtr;
 
+    warrior_path = WARRIOR_D3;
+    warrior_txtr = load_texture(renderer_pp, warrior_path);
+    new_warrior->down3 = warrior_txtr;
+
     int x0 = WOR_X0;
     int y0 = WOR_Y0; //initial warrior position
     SDL_Rect pos_rect = {x0, y0, WOR_WIDTH, WOR_HEIGHT};
@@ -75,6 +87,7 @@ struct warrior *create_warrior(SDL_Renderer **renderer_pp)
     //initial sprite
     new_warrior->current_sprite = RIGHT_0;
     new_warrior->current_txtr = new_warrior->right0;
+    new_warrior->dir = RIGHT;
 }
 
 /**
@@ -84,12 +97,12 @@ struct warrior *create_warrior(SDL_Renderer **renderer_pp)
 void move_right(struct warrior **warrior_pp)
 {
     struct warrior *warrior_ptr = *warrior_pp;
-    int x = warrior_ptr->pos.x + MOVE;
+    int x = warrior_ptr->pos.x + MOVE; //move to right
     int y = warrior_ptr->pos.y;
     if (!collision_wall(x, y, &first_block))
     {
-        warrior_ptr->pos.x = x;
-        warrior_ptr->up = true;
+        warrior_ptr->pos.x = x; //update position
+        warrior_ptr->dir = RIGHT; //set direction
 
         int sprite = warrior_ptr->current_sprite;
         switch (sprite) //change sprite for visual movement effect
@@ -129,11 +142,41 @@ void move_right(struct warrior **warrior_pp)
 void move_left(struct warrior **warrior_pp)
 {
     struct warrior *warrior_ptr = *warrior_pp;
-    int x = warrior_ptr->pos.x - MOVE;
+    int x = warrior_ptr->pos.x - MOVE; //move to left
     int y = warrior_ptr->pos.y;
     if (!collision_wall(x, y, &first_block))
     {
-        warrior_ptr->pos.x = x;
+        warrior_ptr->pos.x = x; //update position
+        warrior_ptr->dir = LEFT; //set direction
+
+        int sprite = warrior_ptr->current_sprite;
+        switch (sprite) //change sprite for visual movement effect
+        {
+        case LEFT_0:
+            warrior_ptr->current_sprite = LEFT_1;
+            warrior_ptr->current_txtr = warrior_ptr->left1;
+            break;
+
+        case LEFT_1:
+            warrior_ptr->current_sprite = LEFT_2;
+            warrior_ptr->current_txtr = warrior_ptr->left2;
+            break;
+
+        case LEFT_2:
+            warrior_ptr->current_sprite = LEFT_3;
+            warrior_ptr->current_txtr = warrior_ptr->left3;
+            break;
+
+        case LEFT_3:
+            warrior_ptr->current_sprite = LEFT_0;
+            warrior_ptr->current_txtr = warrior_ptr->left0;
+            break;
+        
+        default:
+            warrior_ptr->current_sprite = LEFT_0;
+            warrior_ptr->current_txtr = warrior_ptr->left0;
+            break;
+        }
     }
 }
 
@@ -145,10 +188,40 @@ void move_up(struct warrior **warrior_pp)
 {
     struct warrior *warrior_ptr = *warrior_pp;
     int x = warrior_ptr->pos.x;
-    int y = warrior_ptr->pos.y - MOVE;
+    int y = warrior_ptr->pos.y - MOVE; //move up
     if (!collision_wall(x, y, &first_block))
     {
-        warrior_ptr->pos.y = y;
+        warrior_ptr->pos.y = y; //update position
+        warrior_ptr->dir = UP; //set direction
+
+        int sprite = warrior_ptr->current_sprite;
+        switch (sprite) //change sprite for visual movement effect
+        {
+        case UP_0:
+            warrior_ptr->current_sprite = UP_1;
+            warrior_ptr->current_txtr = warrior_ptr->up1;
+            break;
+
+        case UP_1:
+            warrior_ptr->current_sprite = UP_2;
+            warrior_ptr->current_txtr = warrior_ptr->up2;
+            break;
+
+        case UP_2:
+            warrior_ptr->current_sprite = UP_3;
+            warrior_ptr->current_txtr = warrior_ptr->up3;
+            break;
+
+        case UP_3:
+            warrior_ptr->current_sprite = UP_0;
+            warrior_ptr->current_txtr = warrior_ptr->up0;
+            break;
+        
+        default:
+            warrior_ptr->current_sprite = UP_0;
+            warrior_ptr->current_txtr = warrior_ptr->up0;
+            break;
+        }
     }
 }
 
@@ -160,10 +233,40 @@ void move_down(struct warrior **warrior_pp)
 {
     struct warrior *warrior_ptr = *warrior_pp;
     int x = warrior_ptr->pos.x;
-    int y = warrior_ptr->pos.y + MOVE;
+    int y = warrior_ptr->pos.y + MOVE; //move down
     if (!collision_wall(x, y, &first_block))
     {
-        warrior_ptr->pos.y = y;
+        warrior_ptr->pos.y = y; //update position
+        warrior_ptr->dir = DOWN; //set direction
+
+        int sprite = warrior_ptr->current_sprite;
+        switch (sprite) //change sprite for visual movement effect
+        {
+        case DOWN_0:
+            warrior_ptr->current_sprite = DOWN_1;
+            warrior_ptr->current_txtr = warrior_ptr->down1;
+            break;
+
+        case DOWN_1:
+            warrior_ptr->current_sprite = DOWN_2;
+            warrior_ptr->current_txtr = warrior_ptr->down2;
+            break;
+
+        case DOWN_2:
+            warrior_ptr->current_sprite = DOWN_3;
+            warrior_ptr->current_txtr = warrior_ptr->down3;
+            break;
+
+        case DOWN_3:
+            warrior_ptr->current_sprite = DOWN_0;
+            warrior_ptr->current_txtr = warrior_ptr->down0;
+            break;
+        
+        default:
+            warrior_ptr->current_sprite = DOWN_0;
+            warrior_ptr->current_txtr = warrior_ptr->down0;
+            break;
+        }
     }
 }
 

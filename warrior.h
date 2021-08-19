@@ -15,16 +15,18 @@ struct warrior{
     SDL_Texture *left0;
     SDL_Texture *left1;
     SDL_Texture *left2;
+    SDL_Texture *left3;
     SDL_Texture *up0;
     SDL_Texture *up1;
     SDL_Texture *up2;
+    SDL_Texture *up3;
     SDL_Texture *down0;
     SDL_Texture *down1;
     SDL_Texture *down2;
+    SDL_Texture *down3;
     enum WOR_Sprites current_sprite;
 
-    bool right;
-    bool up;
+    enum direction dir;
 
     int lives;
 };

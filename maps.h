@@ -10,6 +10,7 @@ struct block{
     struct block *next_block;
 };
 
+void map_contour(int x, int y, struct block **block_pp);
 void map0();
 void map1();
 void map2();
