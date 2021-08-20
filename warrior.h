@@ -38,13 +38,15 @@ void move_left(struct warrior ** warrior_pp);
 void move_up(struct warrior ** warrior_pp);
 void move_down(struct warrior ** warrior_pp);
 bool collision_wall(int x, int y, struct block **block_pp);
-bool wor_collision_r(int x_wor, int x_block);
-bool wor_collision_l(int x_wor, int x_block);
-bool wor_collision_u(int y_wor, int y_block);
-bool wor_collision_d(int y_wor, int y_block);
+bool wor_collision_r(int x_wor, int x_block, int obj_width);
+bool wor_collision_l(int x_wor, int x_block, int obj_width);
+bool wor_collision_u(int y_wor, int y_block, int obj_height);
+bool wor_collision_d(int y_wor, int y_block, int obj_height);
 bool blk_collision_r(int x_wor, int x_block);
 bool blk_collision_l(int x_wor, int x_block);
 bool blk_collision_u(int y_wor, int y_block);
 bool blk_collision_d(int y_wor, int y_block);
+bool collision_enemies(int x, int y, struct enemy **enemy_pp);
+bool collision_enemy(int x, int y, struct enemy **enemy_pp);
 
 #endif //WARRIOR_H

@@ -47,6 +47,8 @@ void game_loop(SDL_Window ** main_window_pp, SDL_Renderer **renderer_pp, SDL_Tex
     //initialize global variables
     first_block = NULL;
     last_block = NULL;
+    first_enemy = NULL;
+    last_enemy = NULL;
     player = NULL;
 
     map0();
@@ -122,4 +124,7 @@ void game_loop(SDL_Window ** main_window_pp, SDL_Renderer **renderer_pp, SDL_Tex
         SDL_Delay( DELAY ); 
 
     }
+    free_map();
+    free_enemies();
+    free_warrior(&player);
 }

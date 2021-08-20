@@ -22,6 +22,6 @@ void wall_left(int *x, int y, struct block ** block_pp, int blocks);
 void wall_right(int *x, int y, struct block ** block_pp, int blocks);
 void wall_up(int x, int *y, struct block ** block_pp, int blocks);
 void wall_down(int x, int *y, struct block ** block_pp, int blocks);
-
+void free_map();
 
 #endif //MAPS_H

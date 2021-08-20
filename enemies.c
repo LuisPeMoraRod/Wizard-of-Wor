@@ -110,4 +110,46 @@ int random_range(int min, int max){
     return min + rand() / (RAND_MAX / (max - min + 1) + 1);
 }
 
+/**
+ * Add enemy to the end of linked list
+ * @param struct enemy **enemy_pp
+ */ 
+void add_enemy(struct enemy **enemy_pp){
+    struct enemy *new_enemy = *enemy_pp;
+    if (first_enemy == NULL && last_enemy == NULL){
+        first_enemy = new_enemy;
+        last_enemy = new_enemy;
+    }else{
+        last_enemy->next_enemy = new_enemy;
+        last_enemy = new_enemy;
+    }
+}
+
+void free_enemies(){
+    struct enemy *enemy_tmp = first_enemy;
+    struct enemy *enemy_tmp2;
+    while(enemy_tmp != NULL){
+        enemy_tmp2 = enemy_tmp;
+        enemy_tmp = enemy_tmp->next_enemy;
+        SDL_DestroyTexture(enemy_tmp2->current_txtr);
+        SDL_DestroyTexture(enemy_tmp2->right0);
+        SDL_DestroyTexture(enemy_tmp2->right1);
+        SDL_DestroyTexture(enemy_tmp2->right2);
+        SDL_DestroyTexture(enemy_tmp2->right3);
+        SDL_DestroyTexture(enemy_tmp2->left0);
+        SDL_DestroyTexture(enemy_tmp2->left1);
+        SDL_DestroyTexture(enemy_tmp2->left2);
+        SDL_DestroyTexture(enemy_tmp2->left3);
+        SDL_DestroyTexture(enemy_tmp2->up0);
+        SDL_DestroyTexture(enemy_tmp2->up1);
+        SDL_DestroyTexture(enemy_tmp2->up2);
+        SDL_DestroyTexture(enemy_tmp2->up3);
+        SDL_DestroyTexture(enemy_tmp2->down0);
+        SDL_DestroyTexture(enemy_tmp2->down1);
+        SDL_DestroyTexture(enemy_tmp2->down2);
+        SDL_DestroyTexture(enemy_tmp2->down3);
+        free(enemy_tmp2);
+    }
+}
+
 

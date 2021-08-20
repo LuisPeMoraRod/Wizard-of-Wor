@@ -92,8 +92,9 @@ struct warrior *init_warrior(SDL_Renderer **renderer_pp)
 /**
  * Free resources for warrior (including graphics)
  */
-void free_warrior(struct warrior ** warrior_pp){
-    struct warrior * warrior_ptr = *warrior_pp;
+void free_warrior(struct warrior **warrior_pp)
+{
+    struct warrior *warrior_ptr = *warrior_pp;
     SDL_DestroyTexture(warrior_ptr->current_txtr);
     SDL_DestroyTexture(warrior_ptr->right0);
     SDL_DestroyTexture(warrior_ptr->right1);
@@ -124,7 +125,7 @@ void move_right(struct warrior **warrior_pp)
     int y = warrior_ptr->pos.y;
     if (!collision_wall(x, y, &first_block))
     {
-        warrior_ptr->pos.x = x; //update position
+        warrior_ptr->pos.x = x;   //update position
         warrior_ptr->dir = RIGHT; //set direction
 
         int sprite = warrior_ptr->current_sprite;
@@ -149,7 +150,7 @@ void move_right(struct warrior **warrior_pp)
             warrior_ptr->current_sprite = RIGHT_0;
             warrior_ptr->current_txtr = warrior_ptr->right0;
             break;
-        
+
         default:
             warrior_ptr->current_sprite = RIGHT_0;
             warrior_ptr->current_txtr = warrior_ptr->right0;
@@ -169,7 +170,7 @@ void move_left(struct warrior **warrior_pp)
     int y = warrior_ptr->pos.y;
     if (!collision_wall(x, y, &first_block))
     {
-        warrior_ptr->pos.x = x; //update position
+        warrior_ptr->pos.x = x;  //update position
         warrior_ptr->dir = LEFT; //set direction
 
         int sprite = warrior_ptr->current_sprite;
@@ -194,7 +195,7 @@ void move_left(struct warrior **warrior_pp)
             warrior_ptr->current_sprite = LEFT_0;
             warrior_ptr->current_txtr = warrior_ptr->left0;
             break;
-        
+
         default:
             warrior_ptr->current_sprite = LEFT_0;
             warrior_ptr->current_txtr = warrior_ptr->left0;
@@ -215,7 +216,7 @@ void move_up(struct warrior **warrior_pp)
     if (!collision_wall(x, y, &first_block))
     {
         warrior_ptr->pos.y = y; //update position
-        warrior_ptr->dir = UP; //set direction
+        warrior_ptr->dir = UP;  //set direction
 
         int sprite = warrior_ptr->current_sprite;
         switch (sprite) //change sprite for visual movement effect
@@ -239,7 +240,7 @@ void move_up(struct warrior **warrior_pp)
             warrior_ptr->current_sprite = UP_0;
             warrior_ptr->current_txtr = warrior_ptr->up0;
             break;
-        
+
         default:
             warrior_ptr->current_sprite = UP_0;
             warrior_ptr->current_txtr = warrior_ptr->up0;
@@ -259,7 +260,7 @@ void move_down(struct warrior **warrior_pp)
     int y = warrior_ptr->pos.y + MOVE; //move down
     if (!collision_wall(x, y, &first_block))
     {
-        warrior_ptr->pos.y = y; //update position
+        warrior_ptr->pos.y = y;  //update position
         warrior_ptr->dir = DOWN; //set direction
 
         int sprite = warrior_ptr->current_sprite;
@@ -284,7 +285,7 @@ void move_down(struct warrior **warrior_pp)
             warrior_ptr->current_sprite = DOWN_0;
             warrior_ptr->current_txtr = warrior_ptr->down0;
             break;
-        
+
         default:
             warrior_ptr->current_sprite = DOWN_0;
             warrior_ptr->current_txtr = warrior_ptr->down0;
@@ -307,11 +308,11 @@ bool collision_wall(int x, int y, struct block **block_pp)
         return false;
     else
     {
-        if (wor_collision_r(x, block_tmp->pos_x) || wor_collision_l(x, block_tmp->pos_x)) //collision in x
-            if (wor_collision_u(y, block_tmp->pos_y) || wor_collision_d(y, block_tmp->pos_y)) //collision in y
+        if (wor_collision_r(x, block_tmp->pos_x, B_WIDTH) || wor_collision_l(x, block_tmp->pos_x, B_WIDTH))       //collision in x
+            if (wor_collision_u(y, block_tmp->pos_y, B_HEIGHT) || wor_collision_d(y, block_tmp->pos_y, B_HEIGHT)) //collision in y
                 return true;
 
-        if (blk_collision_r(x, block_tmp->pos_x) || blk_collision_l(x, block_tmp->pos_x)) //collision in x with single block row
+        if (blk_collision_r(x, block_tmp->pos_x) || blk_collision_l(x, block_tmp->pos_x))     //collision in x with single block row
             if (blk_collision_u(y, block_tmp->pos_y) || blk_collision_d(y, block_tmp->pos_y)) //collision in y with single block column
                 return true;
 
@@ -320,52 +321,55 @@ bool collision_wall(int x, int y, struct block **block_pp)
 }
 
 /**
- *Checks if right side of wor collides with block
- *@param int x_wor
- *@param int x_block
+ * Checks if right side of wor collides with block or enemy
+ * @param int x_wor
+ * @param int x_block
+ * @param int obj_width : block or enemy width
  */
-bool wor_collision_r(int x_wor, int x_block)
+bool wor_collision_r(int x_wor, int x_block, int obj_width)
 {
     int x = x_wor + WOR_WIDTH;
     return ((x_block <= x) && ((x_block + B_WIDTH) >= x));
 }
 
 /**
- *Checks if left side of wor collides with block
- *@param int x_wor
- *@param int x_block
+ * Checks if left side of wor collides with block
+ * @param int x_wor
+ * @param int x_block
+ * @param int obj_width : block or enemy width
  */
-bool wor_collision_l(int x_wor, int x_block)
+bool wor_collision_l(int x_wor, int x_block, int obj_width)
 {
     return ((x_block <= x_wor) && ((x_block + B_WIDTH) >= x_wor));
 }
 
 /**
- *Checks if top side of wor collides with block
- *@param int y_wor
- *@param int y_block
+ * Checks if top side of wor collides with block
+ * @param int y_wor
+ * @param int y_block
+ * @param int obj_width : block or enemy height
  */
-bool wor_collision_u(int y_wor, int y_block)
+bool wor_collision_u(int y_wor, int y_block, int obj_height)
 {
     return ((y_block <= y_wor) && ((y_block + B_HEIGHT) >= y_wor));
 }
 
 /**
- *Checks if top side of wor collides with block
- *@param int y_wor
- *@param int y_block
+ * Checks if top side of wor collides with block
+ * @param int y_wor
+ * @param int y_block
+ * @param int obj_width : block or enemy height
  */
-bool wor_collision_d(int y_wor, int y_block)
+bool wor_collision_d(int y_wor, int y_block, int obj_height)
 {
     int y = y_wor + WOR_HEIGHT;
     return ((y_block <= y) && ((y_block + B_HEIGHT) >= y));
 }
 
-
 /**
- *Checks if right side of block collides with wor
- *@param int x_wor
- *@param int x_block
+ * Checks if right side of block collides with wor
+ * @param int x_wor
+ * @param int x_block
  */
 bool blk_collision_r(int x_wor, int x_block)
 {
@@ -374,9 +378,9 @@ bool blk_collision_r(int x_wor, int x_block)
 }
 
 /**
- *Checks if left side of block collides with wor
- *@param int x_wor
- *@param int x_block
+ * Checks if left side of block collides with wor
+ * @param int x_wor
+ * @param int x_block
  */
 bool blk_collision_l(int x_wor, int x_block)
 {
@@ -384,9 +388,9 @@ bool blk_collision_l(int x_wor, int x_block)
 }
 
 /**
- *Checks if top side of block collides with wor
- *@param int y_wor
- *@param int y_block
+ * Checks if top side of block collides with wor
+ * @param int y_wor
+ * @param int y_block
  */
 bool blk_collision_u(int y_wor, int y_block)
 {
@@ -394,12 +398,38 @@ bool blk_collision_u(int y_wor, int y_block)
 }
 
 /**
- *Checks if bottom side of block collides with wor
- *@param int y_wor
- *@param int y_block
+ * Checks if bottom side of block collides with wor
+ * @param int y_wor
+ * @param int y_block
  */
 bool blk_collision_d(int y_wor, int y_block)
 {
     int y = y_block + B_HEIGHT;
     return (y >= y_wor) && (y_block <= (y_wor + WOR_HEIGHT));
+}
+
+/**
+ * Loops (recursively) through enemies linked list to determine if warrior has collided with an enemy
+ * @param int x : warrior position in x axis
+ * @param int y : warrior position in y axis
+ * @param struct enemy **enemy_pp
+ */
+bool collision_enemies(int x, int y, struct enemy **enemy_pp)
+{
+    //TODO
+    return true;
+}
+
+/**
+ * Checks if warrior collided with a given enemy
+ * @param int x : warrior position in x axis
+ * @param int y : warrior position in y axis
+ * @param struct enemy **enemy_pp
+ */
+bool collision_enemy(int x, int y, struct enemy **enemy_pp)
+{
+    struct enemy *enemy_ptr = *enemy_pp;
+    if (wor_collision_r(x, enemy_ptr->pos.x, WOR_WIDTH) || wor_collision_l(x, enemy_ptr->pos.x, WOR_WIDTH))       //collision in x
+        if (wor_collision_u(y, enemy_ptr->pos.y, WOR_HEIGHT) || wor_collision_d(y, enemy_ptr->pos.y, WOR_HEIGHT)) //collision in y
+            return true;
 }

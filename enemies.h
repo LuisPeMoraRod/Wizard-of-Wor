@@ -29,9 +29,13 @@ struct enemy{
     enum sprites_num current_sprite;
 
     enum direction dir;
+    struct enemy *next_enemy;
 };
 
 struct enemy* init_enemy(SDL_Renderer **renderer_pp);
 void set_pos();
+int random_range(int min, int max);
+void add_enemy(struct enemy **enemy_pp);
+void free_enemies();
 
 #endif //ENEMIES_H

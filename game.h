@@ -9,6 +9,8 @@
 //global variables to handle data structures
 struct block *first_block;
 struct block *last_block;
+struct enemy *first_enemy;
+struct enemy *last_enemy;
 struct warrior *player;
 
 void game_win();

@@ -193,8 +193,8 @@ struct block *new_block(int x, int y)
 void add_block(struct block **new_block_pp)
 {
     struct block *new_block = *new_block_pp;
-    if (first_block == NULL && last_block == NULL)
-    { //add first block to linked list
+    if (first_block == NULL && last_block == NULL) //add first block to linked list
+    { 
         first_block = new_block;
         last_block = new_block;
     }
@@ -217,5 +217,18 @@ void render_blocks(SDL_Renderer **renderer_pp)
     {
         SDL_RenderFillRect(*renderer_pp, &tmp_block->rect);
         tmp_block = tmp_block->next_block;
+    }
+}
+
+/**
+ * Free resources from block linked list
+ */
+void free_map(){
+    struct block * block_tmp = first_block;
+    struct block *block_tmp2;
+    while(block_tmp != NULL){
+        block_tmp2 = block_tmp;
+        block_tmp = block_tmp->next_block;
+        free(block_tmp2);
     }
 }
