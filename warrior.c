@@ -1,11 +1,11 @@
 #include "warrior.h"
 
 /**
- * Sets struct for new warrior
+ * Inits struct for new warrior
  * @param SDL_Renderer ** renderer_pp
  * @return struct warrior *new_warrior
  */
-struct warrior *create_warrior(SDL_Renderer **renderer_pp)
+struct warrior *init_warrior(SDL_Renderer **renderer_pp)
 {
 
     struct warrior *new_warrior = malloc(sizeof(struct warrior)); //allocation in memory of player
@@ -79,9 +79,8 @@ struct warrior *create_warrior(SDL_Renderer **renderer_pp)
     warrior_txtr = load_texture(renderer_pp, warrior_path);
     new_warrior->down3 = warrior_txtr;
 
-    int x0 = WOR_X0;
-    int y0 = WOR_Y0; //initial warrior position
-    SDL_Rect pos_rect = {x0, y0, WOR_WIDTH, WOR_HEIGHT};
+    //initial warrior position
+    SDL_Rect pos_rect = {WOR_X0, WOR_Y0, WOR_WIDTH, WOR_HEIGHT};
     new_warrior->pos = pos_rect;
 
     //initial sprite
@@ -90,6 +89,30 @@ struct warrior *create_warrior(SDL_Renderer **renderer_pp)
     new_warrior->dir = RIGHT;
 }
 
+/**
+ * Free resources for warrior (including graphics)
+ */
+void free_warrior(struct warrior ** warrior_pp){
+    struct warrior * warrior_ptr = *warrior_pp;
+    SDL_DestroyTexture(warrior_ptr->current_txtr);
+    SDL_DestroyTexture(warrior_ptr->right0);
+    SDL_DestroyTexture(warrior_ptr->right1);
+    SDL_DestroyTexture(warrior_ptr->right2);
+    SDL_DestroyTexture(warrior_ptr->right3);
+    SDL_DestroyTexture(warrior_ptr->left0);
+    SDL_DestroyTexture(warrior_ptr->left1);
+    SDL_DestroyTexture(warrior_ptr->left2);
+    SDL_DestroyTexture(warrior_ptr->left3);
+    SDL_DestroyTexture(warrior_ptr->up0);
+    SDL_DestroyTexture(warrior_ptr->up1);
+    SDL_DestroyTexture(warrior_ptr->up2);
+    SDL_DestroyTexture(warrior_ptr->up1);
+    SDL_DestroyTexture(warrior_ptr->down0);
+    SDL_DestroyTexture(warrior_ptr->down1);
+    SDL_DestroyTexture(warrior_ptr->down2);
+    SDL_DestroyTexture(warrior_ptr->down3);
+    free(warrior_ptr);
+}
 /**
  * Moves warrior to the right if it doesn't collide with another element
  * @param struct warrior ** warrior_pp

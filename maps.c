@@ -1,5 +1,8 @@
 #include "maps.h"
 
+/**
+ * Generates outer walls for the maps
+ */
 void map_contour(int x, int y, struct block **block_pp)
 {
     struct block *block = *block_pp;
@@ -25,30 +28,11 @@ void map_contour(int x, int y, struct block **block_pp)
     wall_right(&x, y, &block, 83);
     wall_up(x, &y, &block, 19);
     wall_right(&x, y, &block, 7);
-
-
-
-    /**wall_right(&x, y, &block, 19);
-    wall_up(x, &y, &block, 6);
-
-    x = 120;
-    y += 10;
-    wall_up(x, &y, &block, 14);
-
-    x = 180;
-    y = 10;
-    wall_down(x, &y, &block, 12);
-
-    x = 60; y = 260;
-    wall_down(x, &y, &block, 25);
-    wall_right(&x, y, &block, 6);
-    wall_up(x, &y, &block, 5);
-
-    x = 60; y = 450;
-    wall_right(&x, y, &block, 6);*/
-
 }
 
+/**
+ * Generates first map
+ */
 void map0(){
     int x = 0;
     int y = 200;
@@ -59,24 +43,16 @@ void map0(){
     wall_right(&x, y, &block, 12);
     wall_up(x, &y, &block, 9);
 
-    x = 120;
-    y = 200;
+    x = 120; y = 210;
     wall_up(x, &y, &block, 14);
 
     x = 180; y = 10;
     wall_down(x, &y, &block, 9);
 
-    //x = 440; y = 70;
-    //wall_right(&x, y, &block, 8);
-
     x = 390; y = 70;
     wall_left(&x, y, &block, 15);
     wall_down(x, &y, &block, 19);
     wall_right(&x, y, &block, 15);
-
-    //x = 290; y = 130;
-    //wall_right(&x, y, &block, 16);
-    //wall_down(x, &y, &block, 19);
 
     x = 120; y = 310;
     wall_down(x, &y, &block, 8);
@@ -89,9 +65,6 @@ void map0(){
     
     x = 390; y = 450;
     wall_up(x, &y, &block, 6);
-
-    //x = 440; y = 390;
-    //wall_right(&x, y, &block, 8);   
 
     //simetry
     x = 560, y = 70;
@@ -118,18 +91,13 @@ void map0(){
     x = 770; y = 10;
     wall_down(x, &y, &block, 9);
 
-    x = 830; y = 200;
+    x = 830; y = 210;
     wall_up(x, &y, &block, 14);
     
     x = 480; y = 250;
     wall_down(x, &y, &block, 13);
 
-    //x = 680; y = 130;
-    //wall_left(&x, y, &block, 16);
-    //wall_down(x, &y, &block, 19);
-    
 }
-
 
 /**
  * Draws wall of consecutive block to the left

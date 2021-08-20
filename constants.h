@@ -23,6 +23,24 @@
 #define WARRIOR_D2 "resources/warrior/warrior_d2.png"
 #define WARRIOR_D3 "resources/warrior/warrior_d3.png"
 
+#define ENEMY_R0 "resources/enemies/enemy_r0.png"
+#define ENEMY_R1 "resources/enemies/enemy_r1.png"
+#define ENEMY_R2 "resources/enemies/enemy_r2.png"
+#define ENEMY_R3 "resources/enemies/enemy_r3.png"
+#define ENEMY_L0 "resources/enemies/enemy_l0.png"
+#define ENEMY_L1 "resources/enemies/enemy_l1.png"
+#define ENEMY_L2 "resources/enemies/enemy_l2.png"
+#define ENEMY_L3 "resources/enemies/enemy_l3.png"
+#define ENEMY_U0 "resources/enemies/enemy_u0.png"
+#define ENEMY_U1 "resources/enemies/enemy_u1.png"
+#define ENEMY_U2 "resources/enemies/enemy_u2.png"
+#define ENEMY_U3 "resources/enemies/enemy_u3.png"
+#define ENEMY_D0 "resources/enemies/enemy_d0.png"
+#define ENEMY_D1 "resources/enemies/enemy_d1.png"
+#define ENEMY_D2 "resources/enemies/enemy_d2.png"
+#define ENEMY_D3 "resources/enemies/enemy_d3.png"
+
+
 #define WIN_WIDTH 960 //window frame width
 #define WIN_HEIGHT 600 //window frame height
 #define MAX_PATH 30
@@ -44,17 +62,21 @@
 #define WOR_X0 0
 #define WOR_Y0 211
 
+//initial enemy position **MUST DELETE LATER!!!!!!!!!!!!!**
+#define EN_X0 70
+#define EN_Y0 400
+
 //extra worriors intial positions
 #define W_LIVE0_X 72 
 #define W_LIVE0_Y 460 
 
 //warrior image dimentions
-#define WOR_WIDTH 42
+#define WOR_WIDTH 44
 #define WOR_HEIGHT 48
 #define MOVE 5
 
 //handle movement effects by alternating sprites
-enum WOR_Sprites{
+enum sprites_num{
     RIGHT_0, 
     RIGHT_1, 
     RIGHT_2,

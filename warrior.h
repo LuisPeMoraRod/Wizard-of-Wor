@@ -24,14 +24,15 @@ struct warrior{
     SDL_Texture *down1;
     SDL_Texture *down2;
     SDL_Texture *down3;
-    enum WOR_Sprites current_sprite;
+    enum sprites_num current_sprite;
 
     enum direction dir;
 
     int lives;
 };
 
-struct warrior * create_warrior(SDL_Renderer **renderer_pp);
+struct warrior * init_warrior(SDL_Renderer **renderer_pp);
+void free_warrior(struct warrior ** warrior_pp);
 void move_right(struct warrior ** warrior_pp);
 void move_left(struct warrior ** warrior_pp);
 void move_up(struct warrior ** warrior_pp);
