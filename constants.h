@@ -2,7 +2,7 @@
 #define CONSTANTS_H
 
 //images paths
-#define GAME_BG_PATH "resources/game_bg.png"
+#define GAME_BG_PATH "resources/black_bg.jpeg"
 #define TITTLE_WIN_PATH "resources/tittle.png"
 #define PRESS_KEY "resources/press_key.png"
 
@@ -67,6 +67,10 @@
 #define X_MAX 845
 #define Y_MIN 20
 #define Y_MAX 400
+
+//Doors
+#define R_DOOR 940
+#define L_DOOR -20
 
 //extra worriors intial positions
 #define W_LIVE0_X 72 

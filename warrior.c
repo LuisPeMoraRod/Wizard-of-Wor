@@ -125,7 +125,11 @@ void move_right(struct warrior **warrior_pp)
     int y = warrior_ptr->pos.y;
     if (!collision_wall(x, y, &first_block))
     {
-        warrior_ptr->pos.x = x;   //update position
+        // Update position
+        if (warrior_ptr->pos.x >= R_DOOR)
+            warrior_ptr->pos.x = L_DOOR;
+        else 
+            warrior_ptr->pos.x = x;
         warrior_ptr->dir = RIGHT; //set direction
 
         int sprite = warrior_ptr->current_sprite;
@@ -170,7 +174,11 @@ void move_left(struct warrior **warrior_pp)
     int y = warrior_ptr->pos.y;
     if (!collision_wall(x, y, &first_block))
     {
-        warrior_ptr->pos.x = x;  //update position
+        // Update position
+        if (warrior_ptr->pos.x <= L_DOOR)
+            warrior_ptr->pos.x = R_DOOR;
+        else 
+            warrior_ptr->pos.x = x;
         warrior_ptr->dir = LEFT; //set direction
 
         int sprite = warrior_ptr->current_sprite;
@@ -329,7 +337,7 @@ bool collision_wall(int x, int y, struct block **block_pp)
 bool wor_collision_r(int x_wor, int x_obj, int obj_width)
 {
     int x = x_wor + WOR_WIDTH;
-    return ((x_obj <= x) && ((x_obj + B_WIDTH) >= x));
+    return ((x_obj <= x) && ((x_obj + obj_width) >= x));
 }
 
 /**
@@ -340,7 +348,7 @@ bool wor_collision_r(int x_wor, int x_obj, int obj_width)
  */
 bool wor_collision_l(int x_wor, int x_obj, int obj_width)
 {
-    return ((x_obj <= x_wor) && ((x_obj + B_WIDTH) >= x_wor));
+    return ((x_obj <= x_wor) && ((x_obj + obj_width) >= x_wor));
 }
 
 /**
@@ -351,7 +359,7 @@ bool wor_collision_l(int x_wor, int x_obj, int obj_width)
  */
 bool wor_collision_u(int y_wor, int y_obj, int obj_height)
 {
-    return ((y_obj <= y_wor) && ((y_obj + B_HEIGHT) >= y_wor));
+    return ((y_obj <= y_wor) && ((y_obj + obj_height) >= y_wor));
 }
 
 /**
@@ -363,7 +371,7 @@ bool wor_collision_u(int y_wor, int y_obj, int obj_height)
 bool wor_collision_d(int y_wor, int y_obj, int obj_height)
 {
     int y = y_wor + WOR_HEIGHT;
-    return ((y_obj <= y) && ((y_obj + B_HEIGHT) >= y));
+    return ((y_obj <= y) && ((y_obj + obj_height) >= y));
 }
 
 /**

@@ -85,9 +85,8 @@ struct enemy* init_enemy(SDL_Renderer **renderer_pp){
     new_enemy->pos = pos_rect;
 
     //initial sprite
-    new_enemy->current_sprite = RIGHT_0;
-    new_enemy->current_txtr = new_enemy->right0;
-    new_enemy->dir = RIGHT;
+    new_enemy->dir = set_dir();
+    set_sprite(new_enemy->dir, &new_enemy);
 
     new_enemy->next_enemy = NULL;
 }
@@ -98,12 +97,12 @@ struct enemy* init_enemy(SDL_Renderer **renderer_pp){
  */
 void create_enemies(SDL_Renderer **renderer_pp){
     struct enemy *new_enemy;
+    srand(time(0));
     for (int i = 0; i < 6; i++){
         new_enemy = init_enemy(renderer_pp);
         add_enemy(&new_enemy);
     }
 }
-
 
 /**
  * Sets enemy's random position. Checks that position doesn't collide with a wall, worrior or other enemy
@@ -111,7 +110,6 @@ void create_enemies(SDL_Renderer **renderer_pp){
 SDL_Rect set_pos(){
     bool valid_pos = false;
     int x; int y;
-    srand(time(0));
     while(!valid_pos){
         x = random_range(X_MIN, X_MAX);
         y = random_range(Y_MIN, Y_MAX);
@@ -122,6 +120,43 @@ SDL_Rect set_pos(){
     }
     SDL_Rect pos = {x, y, WOR_WIDTH, WOR_HEIGHT};
     return pos;
+}
+
+/**
+ * Sets initial enemy direction randomly 
+ */ 
+int set_dir(){
+    int dir = random_range(0, 3);
+    return dir;
+}
+
+/**
+ * Set enemy's initial sprite
+ */ 
+void set_sprite(int dir, struct enemy **enemy_pp){
+    struct enemy  *enemy_ptr = *enemy_pp;
+    switch (dir)
+    {
+    case UP:
+        enemy_ptr->current_sprite = UP_0;
+        enemy_ptr->current_txtr = enemy_ptr->up0;
+        break;
+
+    case DOWN:
+        enemy_ptr->current_sprite = DOWN_0;
+        enemy_ptr->current_txtr = enemy_ptr->down0;
+    
+    case RIGHT:
+        enemy_ptr->current_sprite = RIGHT_0;
+        enemy_ptr->current_txtr = enemy_ptr->right0;
+
+    case LEFT:
+        enemy_ptr->current_sprite = LEFT_0;
+        enemy_ptr->current_txtr = enemy_ptr->left0;
+
+    default:
+        break;
+    }
 }
 
 /**
