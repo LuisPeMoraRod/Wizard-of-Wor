@@ -58,6 +58,10 @@
 #define B_WIDTH 10
 #define B_HEIGHT 10
 
+//bullets
+#define BLLT_WIDTH 10
+#define BLLT_HEIGHT 4
+
 //initial warrior position
 #define WOR_X0 0
 #define WOR_Y0 211

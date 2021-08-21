@@ -96,6 +96,10 @@ void game_loop(SDL_Window ** main_window_pp, SDL_Renderer **renderer_pp, SDL_Tex
                     move_down(&player);
                     break;
                 
+                case SDLK_SPACE:
+                    shoot();
+                    break;
+                
                 default:
                     break;
                 }
@@ -117,6 +121,9 @@ void game_loop(SDL_Window ** main_window_pp, SDL_Renderer **renderer_pp, SDL_Tex
         //Render warrior
         player_pos = &player->pos;
         SDL_RenderCopy(renderer, player->current_txtr, NULL, player_pos);
+
+        //Render bullets
+        render_bullets(renderer_pp);
 
         //Update screen
         SDL_RenderPresent(renderer);

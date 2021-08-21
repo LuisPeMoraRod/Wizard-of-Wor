@@ -172,7 +172,9 @@ void wall_down(int x, int *y, struct block **block_pp, int blocks)
 }
 
 /**
- * Creates new block struct
+ * Creates new block struct with a given position
+ * @param int x
+ * @param int y
  * @return struct block *new_block
  */
 struct block *new_block(int x, int y)

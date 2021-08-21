@@ -5,12 +5,15 @@
 #include "maps.h"
 #include "warrior.h"
 #include "enemies.h"
+#include "bullets.h"
 
 //global variables to handle data structures
 struct block *first_block;
 struct block *last_block;
 struct enemy *first_enemy;
 struct enemy *last_enemy;
+struct bullet *first_bullet;
+struct bullet *last_bullet;
 struct warrior *player;
 
 int enemies_cnt;
