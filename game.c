@@ -53,11 +53,13 @@ void game_loop(SDL_Window ** main_window_pp, SDL_Renderer **renderer_pp, SDL_Tex
 
     map0();
 
-    //create player warrior
+    //Create player's warrior
     player = init_warrior(renderer_pp);
     SDL_Rect *player_pos = NULL;
     
-    struct enemy *enemy_ptr = init_enemy(renderer_pp);
+    //Init enemies
+    enemies_cnt = 0;
+    create_enemies(renderer_pp);
 
     //While application is running
     while( !quit )
@@ -109,13 +111,12 @@ void game_loop(SDL_Window ** main_window_pp, SDL_Renderer **renderer_pp, SDL_Tex
         //Render map
         render_blocks(renderer_pp);
 
-        //render warrior
+        //Render enemies
+        render_enemies(renderer_pp);
+
+        //Render warrior
         player_pos = &player->pos;
         SDL_RenderCopy(renderer, player->current_txtr, NULL, player_pos);
-
-        //render enemy
-        player_pos = &enemy_ptr->pos;
-        SDL_RenderCopy(renderer, enemy_ptr->current_txtr, NULL, player_pos);
 
         //Update screen
         SDL_RenderPresent(renderer);

@@ -33,9 +33,14 @@ struct enemy{
 };
 
 struct enemy* init_enemy(SDL_Renderer **renderer_pp);
-void set_pos();
+void create_enemies(SDL_Renderer **renderer_pp);
+SDL_Rect set_pos();
 int random_range(int min, int max);
+bool collision_wor(int x_enemy, int y_enemy);
 void add_enemy(struct enemy **enemy_pp);
+void delete_enemy(struct enemy **enemy_pp);
+void render_enemies(SDL_Renderer **renderer_pp);
 void free_enemies();
+void free_enemy(struct enemy **enemy_pp);
 
 #endif //ENEMIES_H

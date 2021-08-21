@@ -62,9 +62,11 @@
 #define WOR_X0 0
 #define WOR_Y0 211
 
-//initial enemy position **MUST DELETE LATER!!!!!!!!!!!!!**
-#define EN_X0 70
-#define EN_Y0 400
+//enemies position range
+#define X_MIN 70
+#define X_MAX 845
+#define Y_MIN 20
+#define Y_MAX 400
 
 //extra worriors intial positions
 #define W_LIVE0_X 72 

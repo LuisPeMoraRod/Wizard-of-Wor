@@ -323,47 +323,47 @@ bool collision_wall(int x, int y, struct block **block_pp)
 /**
  * Checks if right side of wor collides with block or enemy
  * @param int x_wor
- * @param int x_block
+ * @param int x_obj
  * @param int obj_width : block or enemy width
  */
-bool wor_collision_r(int x_wor, int x_block, int obj_width)
+bool wor_collision_r(int x_wor, int x_obj, int obj_width)
 {
     int x = x_wor + WOR_WIDTH;
-    return ((x_block <= x) && ((x_block + B_WIDTH) >= x));
+    return ((x_obj <= x) && ((x_obj + B_WIDTH) >= x));
 }
 
 /**
  * Checks if left side of wor collides with block
  * @param int x_wor
- * @param int x_block
+ * @param int x_obj
  * @param int obj_width : block or enemy width
  */
-bool wor_collision_l(int x_wor, int x_block, int obj_width)
+bool wor_collision_l(int x_wor, int x_obj, int obj_width)
 {
-    return ((x_block <= x_wor) && ((x_block + B_WIDTH) >= x_wor));
+    return ((x_obj <= x_wor) && ((x_obj + B_WIDTH) >= x_wor));
 }
 
 /**
  * Checks if top side of wor collides with block
  * @param int y_wor
- * @param int y_block
+ * @param int y_obj
  * @param int obj_width : block or enemy height
  */
-bool wor_collision_u(int y_wor, int y_block, int obj_height)
+bool wor_collision_u(int y_wor, int y_obj, int obj_height)
 {
-    return ((y_block <= y_wor) && ((y_block + B_HEIGHT) >= y_wor));
+    return ((y_obj <= y_wor) && ((y_obj + B_HEIGHT) >= y_wor));
 }
 
 /**
  * Checks if top side of wor collides with block
  * @param int y_wor
- * @param int y_block
+ * @param int y_obj
  * @param int obj_width : block or enemy height
  */
-bool wor_collision_d(int y_wor, int y_block, int obj_height)
+bool wor_collision_d(int y_wor, int y_obj, int obj_height)
 {
     int y = y_wor + WOR_HEIGHT;
-    return ((y_block <= y) && ((y_block + B_HEIGHT) >= y));
+    return ((y_obj <= y) && ((y_obj + B_HEIGHT) >= y));
 }
 
 /**
@@ -416,8 +416,12 @@ bool blk_collision_d(int y_wor, int y_block)
  */
 bool collision_enemies(int x, int y, struct enemy **enemy_pp)
 {
-    //TODO
-    return true;
+    struct enemy *enemy_ptr = *enemy_pp;
+    if (enemy_ptr == NULL)
+        return false;
+    else if (collision_enemy(x, y, &enemy_ptr))
+        return true;
+    return collision_enemies(x, y, &enemy_ptr->next_enemy);
 }
 
 /**
