@@ -122,6 +122,8 @@ void game_loop(SDL_Window ** main_window_pp, SDL_Renderer **renderer_pp, SDL_Tex
         player_pos = &player->pos;
         SDL_RenderCopy(renderer, player->current_txtr, NULL, player_pos);
 
+        //Update bullets
+        update_bullets();
         //Render bullets
         render_bullets(renderer_pp);
 

@@ -33,7 +33,7 @@ void add_bullet(struct bullet **new_bullet_pp){
 }
 
 /**
- * 
+ * Creates new bullet
  */
 void shoot(){
     int x_bllt; int y_bllt; int dir_bllt; int width; int height;
@@ -77,6 +77,46 @@ void shoot(){
     struct bullet *bullet = new_bullet(x_bllt, y_bllt, dir_bllt, width, height);
     add_bullet(&bullet);
 }
+
+/**
+ * Controls movement of bullets
+ */
+void update_bullets(){
+    struct bullet *tmp_bllt = first_bullet;
+    while(tmp_bllt != NULL){
+        move_bullet(&tmp_bllt);
+        tmp_bllt = tmp_bllt->next_bullet;
+    }
+}
+
+/**
+ * Move single bullet
+ */
+void move_bullet(struct bullet **bullet_pp){
+    struct bullet *bullet_ptr = *bullet_pp;
+    switch (bullet_ptr->dir)
+    {
+    case UP:
+        bullet_ptr->rect.y -= MV_BLLT;
+        break;
+    
+    case DOWN:
+        bullet_ptr->rect.y += MV_BLLT;
+        break;
+    
+    case RIGHT:
+        bullet_ptr->rect.x += MV_BLLT;
+        break;
+    
+    case LEFT:
+        bullet_ptr->rect.x -= MV_BLLT;
+        break;
+    
+    default:
+        break;
+    }
+}
+
 /**
  * Renders every bullet in linked list
  * @param SDL_Renderer **renderer_pp

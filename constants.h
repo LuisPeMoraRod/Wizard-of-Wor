@@ -85,6 +85,9 @@
 #define WOR_HEIGHT 48
 #define MOVE 5
 
+//Bullets' velocity
+#define MV_BLLT 2
+
 //handle movement effects by alternating sprites
 enum sprites_num{
     RIGHT_0, 
