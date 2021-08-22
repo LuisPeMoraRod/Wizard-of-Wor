@@ -214,7 +214,7 @@ void delete_enemy(struct enemy **enemy_pp){
             found_enemy = true;
             enemies_cnt -= 1;
         }
-        else if (tmp->next_enemy == enemy_ptr){
+        else if (tmp->next_enemy == enemy_ptr){//if its in between or last node
             if (enemy_ptr == last_enemy)
                 last_enemy = tmp;
             tmp2 = tmp->next_enemy;

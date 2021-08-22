@@ -124,6 +124,7 @@ void game_loop(SDL_Window ** main_window_pp, SDL_Renderer **renderer_pp, SDL_Tex
 
         //Update bullets
         update_bullets();
+        
         //Render bullets
         render_bullets(renderer_pp);
 
