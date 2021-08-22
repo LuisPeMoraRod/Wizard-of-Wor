@@ -209,6 +209,8 @@ void delete_enemy(struct enemy **enemy_pp){
     bool found_enemy = false;
     while(!found_enemy || tmp == NULL){ //loop through linked list to find to-be-deleted enemy
         if (enemy_ptr == first_enemy){ //if it's first in list
+            if (enemy_ptr == last_bullet)//if it's the only enemy
+                last_bullet = NULL;
             first_enemy = first_enemy->next_enemy;
             free_enemy(&enemy_ptr);
             found_enemy = true;

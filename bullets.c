@@ -123,10 +123,8 @@ void move_bullet(struct bullet **bullet_pp){
  * @struct bullet **bullet_pp
  */
 void check_collisions(struct bullet **bullet_pp){
-    struct bullet *bllt_ptr = *bullet_pp;
-    if (coll_bllt_wall(&bllt_ptr, &first_block))
-        delete_bullet(&bllt_ptr);
-
+    if (coll_bllt_wall(bullet_pp, &first_block) || coll_bllt_enemies(bullet_pp, &first_enemy))
+        delete_bullet(bullet_pp);
 }
 
 /**
@@ -140,14 +138,32 @@ bool coll_bllt_wall(struct bullet **bullet_pp, struct block **block_pp){
     struct bullet *bllt_ptr = *bullet_pp;
     if (blck_ptr == NULL) //stop recursion
         return false;
-    else if (coll_bllt_r(bllt_ptr->rect.x, BLLT_WIDTH, blck_ptr->pos_x, B_WIDTH) || coll_bllt_l(bllt_ptr->rect.x, BLLT_WIDTH, blck_ptr->pos_x, B_WIDTH)) //check horizontal collision
-        if (coll_bllt_u(bllt_ptr->rect.y, BLLT_HEIGHT, blck_ptr->pos_y, B_HEIGHT) || coll_bllt_d(bllt_ptr->rect.y, BLLT_HEIGHT, blck_ptr->pos_y, B_HEIGHT)) //check vertical collsions
+    else if (coll_bllt_r(bllt_ptr->rect.x, bllt_ptr->rect.w, blck_ptr->pos_x, B_WIDTH) || coll_bllt_l(bllt_ptr->rect.x, bllt_ptr->rect.w, blck_ptr->pos_x, B_WIDTH)) //check horizontal collisions
+        if (coll_bllt_u(bllt_ptr->rect.y, bllt_ptr->rect.h, blck_ptr->pos_y, B_HEIGHT) || coll_bllt_d(bllt_ptr->rect.y, bllt_ptr->rect.h, blck_ptr->pos_y, B_HEIGHT)) //check vertical collsions
             return true;
     return coll_bllt_wall(bullet_pp, &blck_ptr->next_block);
 }
 
+/**
+ * Loops recursively through enemies linked list to check if bullet has collided with one of them
+ * @param struct bullet **bullet_pp
+ * @param stuct enemy *enemy_ptr
+ * @return bool
+ */
 bool coll_bllt_enemies(struct bullet **bullet_pp, struct enemy **enemy_pp){
-    //TODO  
+    struct bullet *bllt_ptr = *bullet_pp;
+    struct enemy *enemy_ptr = *enemy_pp;
+    if (enemy_ptr == NULL) //stop recursion
+        return false;
+    else if (coll_bllt_r(bllt_ptr->rect.x, bllt_ptr->rect.w, enemy_ptr->pos.x, WOR_WIDTH) || coll_bllt_l(bllt_ptr->rect.x, bllt_ptr->rect.w, enemy_ptr->pos.x, WOR_WIDTH))//check horizontal collision
+        {
+        if (coll_bllt_u(bllt_ptr->rect.y, bllt_ptr->rect.h, enemy_ptr->pos.y, WOR_HEIGHT) || coll_bllt_d(bllt_ptr->rect.y, bllt_ptr->rect.h, enemy_ptr->pos.y, WOR_HEIGHT))//check vertical collisions
+            {
+                delete_enemy(&enemy_ptr); //destroy enemy
+                return true;
+            }
+        }
+    return coll_bllt_enemies(bullet_pp, &enemy_ptr->next_enemy);
 }
 
 /**
@@ -211,9 +227,9 @@ void delete_bullet(struct bullet **bullet_pp){
     bool found_bullet = false;
     while(!found_bullet || tmp == NULL){
         if (bllt_ptr == first_bullet){ //if it's first bullet 
-            first_bullet = first_bullet->next_bullet;
             if (bllt_ptr == last_bullet) //if it's the only bullet
                 last_bullet = NULL;
+            first_bullet = first_bullet->next_bullet;
             free(bllt_ptr);
             found_bullet = true;
         }
