@@ -68,7 +68,7 @@
 
 //enemies position range
 #define X_MIN 70
-#define X_MAX 845
+#define X_MAX 890
 #define Y_MIN 20
 #define Y_MAX 400
 

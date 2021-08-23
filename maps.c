@@ -105,6 +105,82 @@ void map0(){
 
 }
 
+void map1(){
+    int x = 0;
+    int y = 200;
+    struct block *block = new_block(x, y);
+    map_contour(x, y, &block);
+
+    x = 60; y = 260;
+    wall_right(&x, y, &block, 6);
+
+    x = 120; y = 320;
+    wall_right(&x, y, &block, 7);
+    wall_up(x, &y, &block, 6);
+    wall_right(&x, y, &block, 6);
+    wall_up(x, &y, &block, 6);
+
+    x = 120; y = 380;
+    wall_right(&x, y, &block, 13);
+    wall_up(x, &y, &block, 6);
+    wall_right(&x, y, &block, 6);
+    wall_up(x, &y, &block, 12);
+
+    x = 370; y = 450;
+    wall_up(x, &y, &block, 14);
+
+    x = 430; y = 390;
+    wall_up(x, &y, &block, 10);
+
+    x = 310; y = 10;
+    wall_down(x, &y, &block, 6);
+
+    x = 110; y = 70;
+    wall_right(&x, y, &block, 14);
+    wall_down(x, &y, &block, 6);
+    wall_right(&x, y, &block, 12);
+
+    x = 430; y = 60;
+    wall_down(x, &y, &block, 16);
+
+        
+    //simetry
+    x = 890; y = 260;
+    wall_left(&x, y, &block, 6);
+
+    x = 830; y = 320;
+    wall_left(&x, y, &block, 7);
+    wall_up(x, &y, &block, 6);
+    wall_left(&x, y, &block, 6);
+    wall_up(x, &y, &block, 6);
+
+    x = 830; y = 380;
+    wall_left(&x, y, &block, 13);
+    wall_up(x, &y, &block, 6);
+    wall_left(&x, y, &block, 6);
+    wall_up(x, &y, &block, 12);
+
+    x = 580; y = 450;
+    wall_up(x, &y, &block, 14);
+
+    x = 520; y = 390;
+    wall_up(x, &y, &block, 10);
+
+    x = 640; y = 10;
+    wall_down(x, &y, &block, 6);
+
+    x = 840; y = 70;
+    wall_left(&x, y, &block, 14);
+    wall_down(x, &y, &block, 6);
+    wall_left(&x, y, &block, 12);
+
+    x = 520; y = 60;
+    wall_down(x, &y, &block, 16);
+    
+
+
+}
+
 /**
  * Draws wall of consecutive block to the left
  * @param int *x : current x position

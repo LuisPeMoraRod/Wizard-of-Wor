@@ -51,7 +51,7 @@ void game_loop(SDL_Window ** main_window_pp, SDL_Renderer **renderer_pp, SDL_Tex
     last_enemy = NULL;
     player = NULL;
 
-    map0();
+    map1();
 
     //Create player's warrior
     player = init_warrior(renderer_pp);
@@ -139,5 +139,6 @@ void game_loop(SDL_Window ** main_window_pp, SDL_Renderer **renderer_pp, SDL_Tex
     }
     free_map();
     free_enemies();
+    free_bullets();
     free_warrior(&player);
 }
