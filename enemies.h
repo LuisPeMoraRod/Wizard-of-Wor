@@ -5,6 +5,7 @@
 #include "game.h"
 #include <time.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 struct enemy{
     SDL_Rect pos;
@@ -29,6 +30,12 @@ struct enemy{
     enum sprites_num current_sprite;
 
     enum direction dir;
+
+    int x_obj;
+    int y_obj;
+
+    bool search_wor;
+
     struct enemy *next_enemy;
 };
 
@@ -38,9 +45,17 @@ SDL_Rect set_pos();
 int set_dir();
 void set_sprite(int dir, struct enemy **enemy_pp);
 int random_range(int min, int max);
+void update_enemies();
+void move_enemy(struct enemy **enemy_pp);
+void move_r(struct enemy **enemy_pp);
+void move_l(struct enemy **enemy_pp);
+void move_u(struct enemy **enemy_pp);
+void move_d(struct enemy **enemy_pp);
+int mnhttn_dist(int x1, int y1, int x2, int y2);
 bool collision_wor(int x_enemy, int y_enemy);
 void add_enemy(struct enemy **enemy_pp);
 void delete_enemy(struct enemy **enemy_pp);
+bool collision_pos(int x1, int y1, int x2, int y2);
 void render_enemies(SDL_Renderer **renderer_pp);
 void free_enemies();
 void free_enemy(struct enemy **enemy_pp);

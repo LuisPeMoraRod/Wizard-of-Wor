@@ -44,7 +44,7 @@
 #define WIN_WIDTH 960 //window frame width
 #define WIN_HEIGHT 600 //window frame height
 #define MAX_PATH 30
-#define DELAY 10
+#define DELAY 40
 
 //position Press Key image
 #define PK_X 100
@@ -83,10 +83,18 @@
 //warrior image dimentions
 #define WOR_WIDTH 44
 #define WOR_HEIGHT 48
+
+//warrior velocity
 #define MOVE 5
 
+//enemies' velocity
+#define MOVE_ENM 5
+
 //Bullets' velocity
-#define MV_BLLT 2
+#define MV_BLLT 5
+
+//Amount of enemies
+#define ENEMIES 6
 
 //handle movement effects by alternating sprites
 enum sprites_num{

@@ -115,6 +115,9 @@ void game_loop(SDL_Window ** main_window_pp, SDL_Renderer **renderer_pp, SDL_Tex
         //Render map
         render_blocks(renderer_pp);
 
+        //Update enemies
+        update_enemies();
+
         //Render enemies
         render_enemies(renderer_pp);
 
