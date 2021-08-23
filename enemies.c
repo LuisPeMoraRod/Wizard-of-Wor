@@ -82,6 +82,9 @@ struct enemy *init_enemy(SDL_Renderer **renderer_pp)
     SDL_Rect pos_rect = set_pos();
     new_enemy->pos = pos_rect;
 
+    //radar mapping
+    new_enemy->pos_rdr = map_radar(new_enemy->pos);
+
     //initial sprite
     new_enemy->dir = set_dir();
     set_sprite(new_enemy->dir, &new_enemy);
@@ -205,14 +208,14 @@ void move_enemy(struct enemy **enemy_pp){
     int x_wor = enemy_ptr->x_obj;
     int y_wor = enemy_ptr->y_obj;
     int curr_dist = mnhttn_dist(x_enm, y_enm, x_wor, y_wor);
-    if (mnhttn_dist(x_enm + MOVE_ENM, y_enm, x_wor, y_wor) < curr_dist && !collision_wall(x_enm + MOVE_ENM, y_enm, &first_block))
-        move_r(enemy_pp);
-    else if (mnhttn_dist(x_enm - MOVE_ENM, y_enm, x_wor, y_wor) < curr_dist && !collision_wall(x_enm - MOVE_ENM, y_enm, &first_block))
-        move_l(enemy_pp);
-    else if (mnhttn_dist(x_enm, y_enm - MOVE_ENM, x_wor, y_wor) < curr_dist && !collision_wall(x_enm, y_enm - MOVE_ENM, &first_block))
+    if (mnhttn_dist(x_enm, y_enm - MOVE_ENM, x_wor, y_wor) < curr_dist && !collision_wall(x_enm, y_enm - MOVE_ENM, &first_block))
         move_u(enemy_pp);
     else if (mnhttn_dist(x_enm, y_enm + MOVE_ENM, x_wor, y_wor) < curr_dist && !collision_wall(x_enm, y_enm + MOVE_ENM, &first_block))
         move_d(enemy_pp);
+    else if (mnhttn_dist(x_enm + MOVE_ENM, y_enm, x_wor, y_wor) < curr_dist && !collision_wall(x_enm + MOVE_ENM, y_enm, &first_block))
+        move_r(enemy_pp);
+    else if (mnhttn_dist(x_enm - MOVE_ENM, y_enm, x_wor, y_wor) < curr_dist && !collision_wall(x_enm - MOVE_ENM, y_enm, &first_block))
+        move_l(enemy_pp); 
     else{
         enemy_ptr->search_wor = !enemy_ptr->search_wor;
         if (enemy_ptr->search_wor){
@@ -223,6 +226,40 @@ void move_enemy(struct enemy **enemy_pp){
             enemy_ptr->y_obj = random_range(Y_MIN, Y_MAX);
         }
     }
+    enemy_ptr->pos_rdr = map_radar(enemy_ptr->pos);
+}
+
+/**
+ * Maps position of enemy in radar
+ * @param struct enemy **enemy_pp
+ */
+SDL_Rect map_radar(SDL_Rect pos){
+    int x = map_x(pos.x);
+    int y = map_y(pos.y);
+    SDL_Rect rdr_pos = {x , y, E_RDR_W, E_RDR_H};
+    return rdr_pos;
+}
+
+/**
+ * Maps x position to radar
+ * @param int x
+ * @return int : x radar
+ */ 
+int map_x(float x){
+    int x_rdr = x / MAP_W * RDR_W;
+    x_rdr += RDR_X0 + B_WIDTH;
+    return x_rdr;
+}
+
+/**
+ * Maps y position to radar
+ * @param int y
+ * @return int : y radar
+ */ 
+int map_y(float y){
+    int y_rdr = y / MAP_H * RDR_H;
+    y_rdr += RDR_Y0 + B_HEIGHT;
+    return y_rdr;
 }
 
 /**
@@ -403,7 +440,6 @@ int mnhttn_dist(int x1, int y1, int x2, int y2){
     return abs(x1 - x2) + abs(y1 - y2);
 }
 
-
 /**
  * Checks if enemy's positions collides with worrior's
  */
@@ -497,10 +533,13 @@ void render_enemies(SDL_Renderer **renderer_pp)
 {
     struct enemy *tmp = first_enemy;
     SDL_Rect *pos = NULL;
+    SDL_SetRenderDrawColor(*renderer_pp, 0xFF, 0x99, 0x66, 0x00); //red color
     while (tmp != NULL)
     {
         pos = &tmp->pos;
         SDL_RenderCopy(*renderer_pp, tmp->current_txtr, NULL, pos);
+        pos = &tmp->pos_rdr;
+        SDL_RenderFillRect(*renderer_pp, pos);
         tmp = tmp->next_enemy;
     }
 }

@@ -72,6 +72,19 @@
 #define Y_MIN 20
 #define Y_MAX 400
 
+//Radar origin 
+#define RDR_X0 355
+#define RDR_Y0 450
+
+//Radio between map and radar
+#define MAP_W 970
+#define MAP_H 440
+#define RDR_W 230
+#define RDR_H 90
+
+#define E_RDR_W 5
+#define E_RDR_H 5
+
 //Doors
 #define R_DOOR 940
 #define L_DOOR -20

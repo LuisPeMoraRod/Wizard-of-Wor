@@ -82,6 +82,7 @@ struct warrior *init_warrior(SDL_Renderer **renderer_pp)
     //initial warrior position
     SDL_Rect pos_rect = {WOR_X0, WOR_Y0, WOR_WIDTH, WOR_HEIGHT};
     new_warrior->pos = pos_rect;
+    new_warrior->pos_rdr = map_radar(new_warrior->pos);
 
     //initial sprite
     new_warrior->current_sprite = RIGHT_0;
@@ -160,6 +161,7 @@ void move_right(struct warrior **warrior_pp)
             warrior_ptr->current_txtr = warrior_ptr->right0;
             break;
         }
+        warrior_ptr->pos_rdr = map_radar(warrior_ptr->pos);
     }
 }
 
@@ -209,6 +211,7 @@ void move_left(struct warrior **warrior_pp)
             warrior_ptr->current_txtr = warrior_ptr->left0;
             break;
         }
+        warrior_ptr->pos_rdr = map_radar(warrior_ptr->pos);
     }
 }
 
@@ -254,6 +257,7 @@ void move_up(struct warrior **warrior_pp)
             warrior_ptr->current_txtr = warrior_ptr->up0;
             break;
         }
+        warrior_ptr->pos_rdr = map_radar(warrior_ptr->pos);
     }
 }
 
@@ -299,6 +303,7 @@ void move_down(struct warrior **warrior_pp)
             warrior_ptr->current_txtr = warrior_ptr->down0;
             break;
         }
+        warrior_ptr->pos_rdr = map_radar(warrior_ptr->pos);
     }
 }
 
@@ -416,6 +421,11 @@ bool blk_collision_d(int y_wor, int y_block)
     return (y >= y_wor) && (y_block <= (y_wor + WOR_HEIGHT));
 }
 
+void render_wor(SDL_Renderer **renderer_pp){
+    SDL_RenderCopy(*renderer_pp, player->current_txtr, NULL, &player->pos);
+    SDL_SetRenderDrawColor(*renderer_pp, 0xFF, 0xFF, 0x00, 0x00); //yellow color
+    SDL_RenderFillRect(*renderer_pp, &player->pos_rdr);
+}
 /**
  * Loops (recursively) through enemies linked list to determine if warrior has collided with an enemy
  * @param int x : warrior position in x axis

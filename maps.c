@@ -28,6 +28,12 @@ void map_contour(int x, int y, struct block **block_pp)
     wall_right(&x, y, &block, 83);
     wall_up(x, &y, &block, 19);
     wall_right(&x, y, &block, 7);
+
+    x = RDR_X0; y = RDR_Y0;
+    wall_down(x, &y, &block, 10);
+    wall_right(&x, y, &block, 24);
+    wall_up(x, &y, &block, 10);
+
 }
 
 /**
@@ -221,6 +227,7 @@ void render_blocks(SDL_Renderer **renderer_pp)
         tmp_block = tmp_block->next_block;
     }
 }
+
 
 /**
  * Free resources from block linked list

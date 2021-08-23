@@ -9,6 +9,7 @@
 
 struct enemy{
     SDL_Rect pos;
+    SDL_Rect pos_rdr;
     SDL_Texture *current_txtr;
 
     SDL_Texture *right0;
@@ -47,6 +48,9 @@ void set_sprite(int dir, struct enemy **enemy_pp);
 int random_range(int min, int max);
 void update_enemies();
 void move_enemy(struct enemy **enemy_pp);
+SDL_Rect map_radar(SDL_Rect pos);
+int map_x(float x);
+int map_y(float y);
 void move_r(struct enemy **enemy_pp);
 void move_l(struct enemy **enemy_pp);
 void move_u(struct enemy **enemy_pp);

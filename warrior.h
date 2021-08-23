@@ -6,6 +6,7 @@
 
 struct warrior{
     SDL_Rect pos;
+    SDL_Rect pos_rdr;
     SDL_Texture *current_txtr;
 
     SDL_Texture *right0;
@@ -46,6 +47,7 @@ bool blk_collision_r(int x_wor, int x_block);
 bool blk_collision_l(int x_wor, int x_block);
 bool blk_collision_u(int y_wor, int y_block);
 bool blk_collision_d(int y_wor, int y_block);
+void render_wor(SDL_Renderer **renderer_pp);
 bool collision_enemies(int x, int y, struct enemy **enemy_pp);
 bool collision_enemy(int x, int y, struct enemy **enemy_pp);
 
