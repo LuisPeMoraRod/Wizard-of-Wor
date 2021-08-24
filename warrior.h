@@ -30,6 +30,7 @@ struct warrior{
     enum direction dir;
 
     int lives;
+    int kills;
 };
 
 struct warrior * init_warrior(SDL_Renderer **renderer_pp);

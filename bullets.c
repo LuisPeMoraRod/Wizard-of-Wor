@@ -159,6 +159,7 @@ bool coll_bllt_enemies(struct bullet **bullet_pp, struct enemy **enemy_pp){
         {
         if (coll_bllt_u(bllt_ptr->rect.y, bllt_ptr->rect.h, enemy_ptr->pos.y, WOR_HEIGHT) || coll_bllt_d(bllt_ptr->rect.y, bllt_ptr->rect.h, enemy_ptr->pos.y, WOR_HEIGHT))//check vertical collisions
             {
+                player->kills += 1; //increment kills
                 delete_enemy(&enemy_ptr); //destroy enemy
                 return true;
             }

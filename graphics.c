@@ -91,6 +91,46 @@ SDL_Texture *load_texture(SDL_Renderer **renderer_ptr, const char path[MAX_PATH]
     return newTexture;
 }
 
+TTF_Font *load_font(){
+    TTF_Font* font;
+    if ( TTF_Init() < 0 ) 
+	    printf("Error initializing SDL_ttf: %s\n", TTF_GetError());
+    font = TTF_OpenFont("resources/pixelletters.ttf", FONT_SIZE);
+    if ( !font ) 
+	    printf("Failed to load font: %s\n", TTF_GetError());
+    
+}
+
+/**
+ * Attemps to create text texture to be rendered
+ * @param char * text
+ * @param TTF_Font **font_pp
+ * @param int x
+ * @param int y
+ * @param SDL_Renderer **renderer_pp
+ */
+void render_text(int kills, TTF_Font **font_pp, int x, int y, SDL_Renderer **renderer_pp){
+    SDL_Surface* text;
+    SDL_Texture* text_texture;
+
+    // Set color to red
+    SDL_Color color = { 255, 0, 0 };
+
+    char kills_txt[10];
+    snprintf(kills_txt, 10, "Kills: %d", kills);
+    
+    text = TTF_RenderText_Solid(*font_pp, kills_txt, color );
+
+    if (!text)
+	    printf("Failed to load font: %s\n", TTF_GetError());
+    
+    text_texture = SDL_CreateTextureFromSurface( *renderer_pp, text );
+
+    SDL_Rect pos = { x, y, text->w, text->h };
+
+    SDL_RenderCopy(*renderer_pp, text_texture, NULL, &pos);
+}
+
 
 /**
  * Free SDL graphic resources

@@ -38,6 +38,9 @@ void game_loop(SDL_Window ** main_window_pp, SDL_Renderer **renderer_pp, SDL_Tex
     SDL_Renderer *renderer = *renderer_pp;
     SDL_Texture *background_texture = *bg_txtr_pp;
 
+    //Font for text rendering
+    TTF_Font *font = load_font(); 
+
     //Main loop flag
     bool quit = false;
 
@@ -51,7 +54,7 @@ void game_loop(SDL_Window ** main_window_pp, SDL_Renderer **renderer_pp, SDL_Tex
     last_enemy = NULL;
     player = NULL;
 
-    map1();
+    map2();
 
     //Create player's warrior
     player = init_warrior(renderer_pp);
@@ -129,6 +132,9 @@ void game_loop(SDL_Window ** main_window_pp, SDL_Renderer **renderer_pp, SDL_Tex
         
         //Render bullets
         render_bullets(renderer_pp);
+
+        //Render text for enemies counter
+        render_text(player->kills, &font, CONT_X, CONT_Y, renderer_pp);
 
         //Update screen
         SDL_RenderPresent(renderer);

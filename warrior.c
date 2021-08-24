@@ -88,6 +88,9 @@ struct warrior *init_warrior(SDL_Renderer **renderer_pp)
     new_warrior->current_sprite = RIGHT_0;
     new_warrior->current_txtr = new_warrior->right0;
     new_warrior->dir = RIGHT;
+
+    new_warrior->lives = LIVES;
+    new_warrior->kills = 0;
 }
 
 /**

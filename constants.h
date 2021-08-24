@@ -46,6 +46,12 @@
 #define MAX_PATH 30
 #define DELAY 40
 
+#define FONT_SIZE 45
+
+//Enemies counter text position
+#define CONT_X 0
+#define CONT_Y 550
+
 //position Press Key image
 #define PK_X 100
 #define PK_Y 560
@@ -108,6 +114,9 @@
 
 //Amount of enemies
 #define ENEMIES 6
+
+//Number of lives
+#define LIVES 4
 
 //handle movement effects by alternating sprites
 enum sprites_num{
