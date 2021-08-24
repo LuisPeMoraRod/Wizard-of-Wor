@@ -63,6 +63,8 @@ void game_loop(int map, SDL_Window ** main_window_pp, SDL_Renderer **renderer_pp
     //Event handler
     SDL_Event event;
 
+    rand_time = random_range(RND_MIN0, RND_MAX0);
+
     //initialize global variables
     first_block = NULL;
     last_block = NULL;
@@ -120,6 +122,8 @@ void game_loop(int map, SDL_Window ** main_window_pp, SDL_Renderer **renderer_pp
         SDL_RenderPresent(*renderer_pp);
         SDL_Delay(DELAY_GR);
     } else you_win(main_window_pp ,renderer_pp);
+    
+    time(&strt_rand_en);
 
     //While application is running
     while( !quit && !win && player->lives > 0 && enemies_cnt > 0)
@@ -178,6 +182,8 @@ void game_loop(int map, SDL_Window ** main_window_pp, SDL_Renderer **renderer_pp
         if (!player->death){
             //Update enemies
             update_enemies();
+
+            create_rand_en(renderer_pp);
 
             //Update bullets
             update_bullets();
@@ -285,7 +291,6 @@ void you_win(SDL_Window ** main_window_pp, SDL_Renderer **renderer_pp){
     char *text_c = "YOU WIN!!!";
     SDL_Color color = { 255, 216, 61}; //yellow
     render_text(text_c, &font, color, WOR_IMG_X + WOR_IMG_W * 3/2, WOR_IMG_Y + WOR_IMG_H/2, renderer_pp);
-
 
 
     SDL_RenderPresent(*renderer_pp);

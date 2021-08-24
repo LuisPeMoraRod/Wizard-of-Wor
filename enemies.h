@@ -57,6 +57,7 @@ void move_u(struct enemy **enemy_pp);
 void move_d(struct enemy **enemy_pp);
 int mnhttn_dist(int x1, int y1, int x2, int y2);
 bool collision_wor(int x_enemy, int y_enemy);
+void create_rand_en(SDL_Renderer **renderer_pp);
 void add_enemy(struct enemy **enemy_pp);
 void delete_enemy(struct enemy **enemy_pp);
 bool collision_pos(int x1, int y1, int x2, int y2);

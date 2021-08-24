@@ -16,6 +16,10 @@ struct bullet *first_bullet;
 struct bullet *last_bullet;
 struct warrior *player;
 
+time_t strt_rand_en;
+time_t fnsh_rand_en;
+int rand_time;
+
 int enemies_cnt;
 
 void game_win();

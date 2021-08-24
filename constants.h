@@ -80,6 +80,10 @@
 #define PK_BLINK 0.3 //blink time of Press Key image
 #define WOR_BLINK 0.1
 
+//random time range to generate new enemies
+#define RND_MIN0 10
+#define RND_MAX0 20
+
 //blocks
 #define B_WIDTH 10
 #define B_HEIGHT 10

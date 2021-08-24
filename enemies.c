@@ -454,6 +454,19 @@ bool collision_wor(int x_enemy, int y_enemy)
 }
 
 /**
+ * Creates random enemy every certain amount of time
+ */
+void create_rand_en(SDL_Renderer **renderer_pp){
+    time(&fnsh_rand_en);
+    if (difftime(fnsh_rand_en, strt_rand_en) > rand_time){
+        time(&strt_rand_en);
+        struct enemy *new_enemy = init_enemy(renderer_pp);
+        add_enemy(&new_enemy);
+    }
+}
+
+
+/**
  * Add enemy to the end of linked list
  * @param struct enemy **enemy_pp
  */
