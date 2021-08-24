@@ -19,6 +19,9 @@ struct warrior *player;
 int enemies_cnt;
 
 void game_win();
-void game_loop(SDL_Window ** main_window_pp, SDL_Renderer **renderer_pp, SDL_Texture **bg_txtr_pp);
-
+void new_game(SDL_Window ** main_window_pp, SDL_Renderer **renderer_pp, SDL_Texture **bg_txtr_pp);
+void game_loop(int map, SDL_Window ** main_window_pp, SDL_Renderer **renderer_pp, SDL_Texture **bg_txtr_pp);
+void get_ready(SDL_Renderer **renderer_pp);
+void game_over(SDL_Renderer **renderer_pp);
+void you_win(SDL_Window ** main_window_pp, SDL_Renderer ** renderer_pp);
 #endif //GAME_H

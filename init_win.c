@@ -1,4 +1,6 @@
 #include "init_win.h"
+#include "game.h"
+
 
 /**
  * Creates initial window
@@ -98,14 +100,15 @@ void win_loop(SDL_Window ** main_window_pp, SDL_Renderer **renderer_pp, SDL_Text
                 if (SDL_GetWindowID(*main_window_pp) == event.window.windowID)
                 {
                     quit = true;
+                    close_window(main_window_pp, &renderer, bg_txtr_pp);
                 }
             }
             if( event.type == SDL_KEYDOWN) 
             {
                 quit = true;
                 close_window(main_window_pp, &renderer, bg_txtr_pp);
+                game_win();
             }
         }
-
     }
 }

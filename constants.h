@@ -40,6 +40,21 @@
 #define ENEMY_D2 "resources/enemies/enemy_d2.png"
 #define ENEMY_D3 "resources/enemies/enemy_d3.png"
 
+#define GETREADY "resources/getready.png"
+#define GR_X 280
+#define GR_Y 200
+#define GR_W 400
+#define GR_H 75
+#define DELAY_GR 3000
+
+#define GAMEOVER "resources/gameover.png"
+
+#define YOUWIN "resources/win_bg.jpg"
+#define WOR_IMG "resources/wor.png"
+#define WOR_IMG_X 100
+#define WOR_IMG_Y 400
+#define WOR_IMG_W 100
+#define WOR_IMG_H 100
 
 #define WIN_WIDTH 960 //window frame width
 #define WIN_HEIGHT 600 //window frame height
@@ -120,10 +135,10 @@
 #define MV_BLLT 5
 
 //Amount of enemies
-#define ENEMIES 6
+#define ENEMIES 1
 
 //Number of lives
-#define LIVES 4
+#define LIVES 1
 
 //handle movement effects by alternating sprites
 enum sprites_num{
@@ -150,6 +165,12 @@ enum direction{
     DOWN,
     RIGHT,
     LEFT
+};
+
+enum maps_num{
+    MAP0,
+    MAP1,
+    MAP2
 };
 
 #endif //CONSTANTS_H

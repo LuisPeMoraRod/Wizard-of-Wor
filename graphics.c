@@ -109,12 +109,9 @@ TTF_Font *load_font(){
  * @param int y
  * @param SDL_Renderer **renderer_pp
  */
-void render_text(char *buff, TTF_Font **font_pp, int x, int y, SDL_Renderer **renderer_pp){
+void render_text(char *buff, TTF_Font **font_pp, SDL_Color color, int x, int y, SDL_Renderer **renderer_pp){
     SDL_Surface* text;
     SDL_Texture* text_texture;
-
-    // Set color to red
-    SDL_Color color = { 255, 0, 0 };
 
     text = TTF_RenderText_Solid(*font_pp, buff, color );
 
@@ -126,6 +123,8 @@ void render_text(char *buff, TTF_Font **font_pp, int x, int y, SDL_Renderer **re
     SDL_Rect pos = { x, y, text->w, text->h };
 
     SDL_RenderCopy(*renderer_pp, text_texture, NULL, &pos);
+    SDL_DestroyTexture( text_texture );
+    SDL_FreeSurface( text );
 }
 
 

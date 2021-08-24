@@ -439,12 +439,12 @@ void render_wor(SDL_Renderer **renderer_pp){
  * Renders extra worriors
  */ 
 void render_extra_wors(SDL_Renderer **renderer_pp){
-    if (player->lives > 0){
+    if (player->lives > 1){
         SDL_Rect pos = {W_LIVE0_X, W_LIVE0_Y, WOR_WIDTH, WOR_HEIGHT};
         SDL_RenderCopy(*renderer_pp, player->right0, NULL, &pos);
         for (int i = 0; i < player->lives - 2; i++){
             pos.x = 0;
-            pos.y -= WOR_HEIGHT * i;
+            pos.y -= WOR_HEIGHT * i; 
             SDL_RenderCopy(*renderer_pp, player->right0, NULL, &pos);
         }
     }
