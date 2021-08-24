@@ -58,6 +58,21 @@ void win_loop(SDL_Window ** main_window_pp, SDL_Renderer **renderer_pp, SDL_Text
     int x = 0, y = 0;
 
     time(&start);
+    
+    size_t size = sizeof(struct image);
+    struct image *press_key = malloc(size);
+
+    //Render "press any key to start" image
+    press_key->img_path = PRESS_KEY;
+    press_key->pos_x = PK_X;
+    press_key->pos_y = PK_Y;
+    press_key->width = PK_WIDTH;
+    press_key->height = PK_HEIGHT;
+    SDL_Rect pos_rect = {press_key->pos_x, press_key->pos_y, press_key->width, press_key->height};
+    press_key->pos_rect = pos_rect;
+
+    SDL_Texture *texture = load_texture(renderer_pp, press_key->img_path);
+    press_key->texture = texture;
 
     //While application is running
     while( !quit )
@@ -67,19 +82,8 @@ void win_loop(SDL_Window ** main_window_pp, SDL_Renderer **renderer_pp, SDL_Text
 
         //Render background_texture to screen
         SDL_RenderCopy(renderer, background_texture, NULL, NULL );
+        
 
-        //Render "press any key to start" image
-        size_t size = sizeof(struct image);
-        struct image *press_key = malloc(size);
-        press_key->img_path = PRESS_KEY;
-        press_key->pos_x = PK_X;
-        press_key->pos_y = PK_Y;
-        press_key->width = PK_WIDTH;
-        press_key->height = PK_HEIGHT;
-        SDL_Rect pos_rect = {press_key->pos_x, press_key->pos_y, press_key->width, press_key->height};
-        press_key->pos_rect = pos_rect;
-        SDL_Texture *texture = load_texture(renderer_pp, press_key->img_path);
-        press_key->texture = texture;
         time(&finish);
         if (difftime(finish, start) > PK_BLINK){ //blink message
             time(&start);
@@ -99,12 +103,16 @@ void win_loop(SDL_Window ** main_window_pp, SDL_Renderer **renderer_pp, SDL_Text
 
                 if (SDL_GetWindowID(*main_window_pp) == event.window.windowID)
                 {
+                    SDL_DestroyTexture(texture);
+                    free(press_key);
                     quit = true;
                     close_window(main_window_pp, &renderer, bg_txtr_pp);
                 }
             }
             if( event.type == SDL_KEYDOWN) 
             {
+                SDL_DestroyTexture(texture);
+                free(press_key);
                 quit = true;
                 close_window(main_window_pp, &renderer, bg_txtr_pp);
                 game_win();

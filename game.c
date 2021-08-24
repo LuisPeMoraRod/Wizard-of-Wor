@@ -55,6 +55,8 @@ void game_loop(int map, SDL_Window ** main_window_pp, SDL_Renderer **renderer_pp
 
     //Font for text rendering
     TTF_Font *font = load_font(); 
+    SDL_Color color = { 255, 0, 0 };
+
 
     //Main loop flag
     bool win = false;
@@ -119,8 +121,7 @@ void game_loop(int map, SDL_Window ** main_window_pp, SDL_Renderer **renderer_pp
         //GET READY message
         get_ready(renderer_pp);
 
-        SDL_RenderPresent(*renderer_pp);
-        SDL_Delay(DELAY_GR);
+        
     } else you_win(main_window_pp ,renderer_pp);
     
     time(&strt_rand_en);
@@ -208,7 +209,6 @@ void game_loop(int map, SDL_Window ** main_window_pp, SDL_Renderer **renderer_pp
         char kills_txt[20];
         snprintf(kills_txt, 20, "Kills: %d, Lives: %d", player->kills, player->lives);
         // Set color to red
-        SDL_Color color = { 255, 0, 0 };
         render_text(kills_txt, &font, color, CONT_X, CONT_Y, renderer_pp);
 
         //Render text for radar
@@ -242,6 +242,8 @@ void game_loop(int map, SDL_Window ** main_window_pp, SDL_Renderer **renderer_pp
         free_map();
         free_enemies();
         free_bullets();
+
+        SDL_DestroyTexture(background_texture);
         close_window(main_window_pp, &renderer, bg_txtr_pp);
     }
 }
@@ -256,7 +258,10 @@ void get_ready(SDL_Renderer **renderer_pp){
     SDL_Rect pos = {GR_X, GR_Y, GR_W, GR_H};
 
     SDL_RenderCopy(*renderer_pp, txtr, NULL, &pos);
-    
+    SDL_RenderPresent(*renderer_pp);
+    SDL_Delay(DELAY_GR);
+
+    SDL_DestroyTexture(txtr);
 }
 
 /**
@@ -264,13 +269,15 @@ void get_ready(SDL_Renderer **renderer_pp){
  * @param SDL_Renderer **renderer_pp
  */
 void game_over(SDL_Renderer **renderer_pp){
-    const char *gr_path = GAMEOVER;
-    SDL_Texture *txtr = load_texture(renderer_pp, gr_path);
+    const char *go_path = GAMEOVER;
+    SDL_Texture *txtr = load_texture(renderer_pp, go_path);
     SDL_Rect pos = {GR_X, GR_Y, GR_W, GR_H};
 
     SDL_RenderCopy(*renderer_pp, txtr, NULL, &pos);
     SDL_RenderPresent(*renderer_pp);
     SDL_Delay(DELAY_GR);
+
+    SDL_DestroyTexture(txtr);
 }
 
 /**
@@ -295,6 +302,10 @@ void you_win(SDL_Window ** main_window_pp, SDL_Renderer **renderer_pp){
 
     SDL_RenderPresent(*renderer_pp);
     SDL_Delay(DELAY_GR);
+
+    SDL_DestroyTexture(wor_txtr);
+    free(font);
+
     close_window(main_window_pp, renderer_pp, &win_txtr);
     main();
 }
