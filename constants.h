@@ -138,7 +138,7 @@
 #define ENEMIES 1
 
 //Number of lives
-#define LIVES 1
+#define LIVES 4
 
 //handle movement effects by alternating sprites
 enum sprites_num{

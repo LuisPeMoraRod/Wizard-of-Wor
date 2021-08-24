@@ -57,6 +57,7 @@ void game_loop(int map, SDL_Window ** main_window_pp, SDL_Renderer **renderer_pp
     TTF_Font *font = load_font(); 
 
     //Main loop flag
+    bool win = false;
     bool quit = false;
 
     //Event handler
@@ -86,12 +87,12 @@ void game_loop(int map, SDL_Window ** main_window_pp, SDL_Renderer **renderer_pp
         break;
     
     default:
-        quit = true;
+        win = true;
         break;
     }
 
     SDL_Rect *player_pos = NULL;
-    if (!quit){
+    if (!win){
         //Init enemies
         enemies_cnt = 0;
         create_enemies(renderer_pp);
@@ -121,7 +122,7 @@ void game_loop(int map, SDL_Window ** main_window_pp, SDL_Renderer **renderer_pp
     } else you_win(main_window_pp ,renderer_pp);
 
     //While application is running
-    while( !quit && player->lives > 0 && enemies_cnt > 0)
+    while( !quit && !win && player->lives > 0 && enemies_cnt > 0)
     {
         //Handle events on queue
         while(SDL_PollEvent( &event ) != 0 )
@@ -216,13 +217,13 @@ void game_loop(int map, SDL_Window ** main_window_pp, SDL_Renderer **renderer_pp
 
     }
 
-    if (player->lives > 0 && !quit){
+    if (player->lives > 0 && !win && !quit){
         free_map();
         free_enemies();
         free_bullets();
         map += 1;
         game_loop(map, main_window_pp, renderer_pp, bg_txtr_pp);
-    } else if (player->lives == 0 && !quit){
+    } else if (player->lives == 0 && !win && !quit){
         free_map();
         free_enemies();
         free_bullets();
@@ -230,6 +231,12 @@ void game_loop(int map, SDL_Window ** main_window_pp, SDL_Renderer **renderer_pp
         game_over(renderer_pp);
         close_window(main_window_pp, &renderer, bg_txtr_pp);
         main();
+
+    } else if(quit){
+        free_map();
+        free_enemies();
+        free_bullets();
+        close_window(main_window_pp, &renderer, bg_txtr_pp);
     }
 }
 
@@ -273,6 +280,14 @@ void you_win(SDL_Window ** main_window_pp, SDL_Renderer **renderer_pp){
     SDL_Rect pos = {WOR_IMG_X, WOR_IMG_Y, WOR_IMG_W, WOR_IMG_H};
     SDL_Texture *wor_txtr = load_texture(renderer_pp, wor_path);
     SDL_RenderCopy(*renderer_pp, wor_txtr, NULL, &pos);
+
+    TTF_Font *font = load_font(); 
+    char *text_c = "YOU WIN!!!";
+    SDL_Color color = { 255, 216, 61}; //yellow
+    render_text(text_c, &font, color, WOR_IMG_X + WOR_IMG_W * 3/2, WOR_IMG_Y + WOR_IMG_H/2, renderer_pp);
+
+
+
     SDL_RenderPresent(*renderer_pp);
     SDL_Delay(DELAY_GR);
     close_window(main_window_pp, renderer_pp, &win_txtr);
