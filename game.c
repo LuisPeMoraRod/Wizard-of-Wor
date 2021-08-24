@@ -124,18 +124,30 @@ void game_loop(SDL_Window ** main_window_pp, SDL_Renderer **renderer_pp, SDL_Tex
         //Render enemies
         render_enemies(renderer_pp);
 
-        //Render warrior
-        render_wor(renderer_pp);
-
         //Update bullets
         update_bullets();
         
         //Render bullets
         render_bullets(renderer_pp);
 
-        //Render text for enemies counter
-        render_text(player->kills, &font, CONT_X, CONT_Y, renderer_pp);
+        //Checks if worrior collided with enemy
+        check_death();
 
+        //Render warrior
+        render_wor(renderer_pp);
+
+        //Render extra worriors
+        render_extra_wors(renderer_pp);
+
+        //Render text for enemies counter
+        char kills_txt[20];
+        snprintf(kills_txt, 20, "Kills: %d, Lives: %d", player->kills, player->lives);
+        render_text(kills_txt, &font, CONT_X, CONT_Y, renderer_pp);
+
+        //Render text for radar
+        char *radar_txt = "RADAR";
+        render_text(radar_txt, &font, RDR_X, RDR_Y, renderer_pp);
+        
         //Update screen
         SDL_RenderPresent(renderer);
 

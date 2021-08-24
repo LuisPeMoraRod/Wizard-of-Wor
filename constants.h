@@ -52,6 +52,10 @@
 #define CONT_X 0
 #define CONT_Y 550
 
+//Radar text position
+#define RDR_X 425
+#define RDR_Y 560
+
 //position Press Key image
 #define PK_X 100
 #define PK_Y 560
@@ -59,6 +63,7 @@
 #define PK_HEIGHT 40
 
 #define PK_BLINK 0.3 //blink time of Press Key image
+#define WOR_BLINK 0.1
 
 //blocks
 #define B_WIDTH 10
@@ -71,6 +76,8 @@
 //initial warrior position
 #define WOR_X0 0
 #define WOR_Y0 211
+
+#define INVSBL 1000
 
 //enemies position range
 #define X_MIN 70

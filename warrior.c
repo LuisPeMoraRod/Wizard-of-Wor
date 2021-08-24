@@ -91,6 +91,7 @@ struct warrior *init_warrior(SDL_Renderer **renderer_pp)
 
     new_warrior->lives = LIVES;
     new_warrior->kills = 0;
+    new_warrior->death = false;
 }
 
 /**
@@ -424,11 +425,69 @@ bool blk_collision_d(int y_wor, int y_block)
     return (y >= y_wor) && (y_block <= (y_wor + WOR_HEIGHT));
 }
 
+/**
+ * Renders worrior's sprite
+ * @param SDL_Renderer **renderer_pp
+ */
 void render_wor(SDL_Renderer **renderer_pp){
     SDL_RenderCopy(*renderer_pp, player->current_txtr, NULL, &player->pos);
     SDL_SetRenderDrawColor(*renderer_pp, 0xFF, 0xFF, 0x00, 0x00); //yellow color
     SDL_RenderFillRect(*renderer_pp, &player->pos_rdr);
 }
+
+/**
+ * Renders extra worriors
+ */ 
+void render_extra_wors(SDL_Renderer **renderer_pp){
+    if (player->lives > 0){
+        SDL_Rect pos = {W_LIVE0_X, W_LIVE0_Y, WOR_WIDTH, WOR_HEIGHT};
+        SDL_RenderCopy(*renderer_pp, player->right0, NULL, &pos);
+        for (int i = 0; i < player->lives - 2; i++){
+            pos.x = 0;
+            pos.y -= WOR_HEIGHT * i;
+            SDL_RenderCopy(*renderer_pp, player->right0, NULL, &pos);
+        }
+    }
+}
+
+/**
+ * Checks if worrior collided with an enemy
+ */
+void check_death(){
+    if(player->death){ //binking routine
+        time(&player->finish);
+        if (difftime(player->finish, player->start) > WOR_BLINK){
+            player->blinks += 1;
+            time(&player->start);
+            player->visible = !player->visible;
+            if (player->visible){
+                player->pos.x = WOR_X0;
+                player->pos.y = WOR_Y0;
+            }else{
+                player->pos.x = INVSBL;
+                player->pos.y = INVSBL;
+            }
+        }
+        if(player->blinks == 5){
+            player->death = false;
+            player->pos.x = WOR_X0;
+            player->pos.y = WOR_Y0;
+        }
+    }
+    else if (collision_enemies(player->pos.x, player->pos.y, &first_enemy)){ //checks colision
+        player->death = true;
+        player->lives -= 1;
+        player->pos.x = WOR_X0;
+        player->pos.y = WOR_Y0;
+        player->dir = RIGHT;
+        player->current_sprite = RIGHT_0;
+        player->current_txtr = player->right0;
+        player->blinks = 0;
+        player->visible = false;
+        time(&player->start);
+    }
+}
+
 /**
  * Loops (recursively) through enemies linked list to determine if warrior has collided with an enemy
  * @param int x : warrior position in x axis

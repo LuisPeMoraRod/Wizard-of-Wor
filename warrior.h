@@ -5,6 +5,8 @@
 #include "game.h"
 
 struct warrior{
+    time_t start;
+    time_t finish;
     SDL_Rect pos;
     SDL_Rect pos_rdr;
     SDL_Texture *current_txtr;
@@ -31,6 +33,9 @@ struct warrior{
 
     int lives;
     int kills;
+    bool death;
+    bool visible;
+    int blinks;
 };
 
 struct warrior * init_warrior(SDL_Renderer **renderer_pp);
@@ -49,6 +54,8 @@ bool blk_collision_l(int x_wor, int x_block);
 bool blk_collision_u(int y_wor, int y_block);
 bool blk_collision_d(int y_wor, int y_block);
 void render_wor(SDL_Renderer **renderer_pp);
+void render_extra_wors(SDL_Renderer **renderer_pp);
+void check_death();
 bool collision_enemies(int x, int y, struct enemy **enemy_pp);
 bool collision_enemy(int x, int y, struct enemy **enemy_pp);
 
