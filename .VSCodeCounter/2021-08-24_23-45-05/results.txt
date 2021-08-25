@@ -1,0 +1,43 @@
+Date : 2021-08-24 23:45:05
+Directory : /home/luispedro/Documents/V-Semester/DSD/Wizard-of-Wor
+Total : 17 files,  1922 codes, 474 comments, 433 blanks, all 2829 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| C        |          8 |      1,564 |        453 |        354 |      2,371 |
+| C++      |          8 |        350 |         21 |         71 |        442 |
+| Markdown |          1 |          8 |          0 |          8 |         16 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++---------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                | files      | code       | comment    | blank      | total      |
++---------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                   |         17 |      1,922 |        474 |        433 |      2,829 |
++---------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++---------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                            | language | code       | comment    | blank      | total      |
++---------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| /home/luispedro/Documents/V-Semester/DSD/Wizard-of-Wor/README.md    | Markdown |          8 |          0 |          8 |         16 |
+| /home/luispedro/Documents/V-Semester/DSD/Wizard-of-Wor/bullets.c    | C        |        174 |         77 |         25 |        276 |
+| /home/luispedro/Documents/V-Semester/DSD/Wizard-of-Wor/bullets.h    | C++      |         26 |          0 |          3 |         29 |
+| /home/luispedro/Documents/V-Semester/DSD/Wizard-of-Wor/constants.h  | C++      |        129 |         20 |         34 |        183 |
+| /home/luispedro/Documents/V-Semester/DSD/Wizard-of-Wor/enemies.c    | C        |        432 |        110 |         80 |        622 |
+| /home/luispedro/Documents/V-Semester/DSD/Wizard-of-Wor/enemies.h    | C++      |         64 |          0 |         10 |         74 |
+| /home/luispedro/Documents/V-Semester/DSD/Wizard-of-Wor/game.c       | C        |        190 |         51 |         70 |        311 |
+| /home/luispedro/Documents/V-Semester/DSD/Wizard-of-Wor/game.h       | C++      |         25 |          1 |          5 |         31 |
+| /home/luispedro/Documents/V-Semester/DSD/Wizard-of-Wor/graphics.c   | C        |         89 |         39 |         25 |        153 |
+| /home/luispedro/Documents/V-Semester/DSD/Wizard-of-Wor/graphics.h   | C++      |         21 |          0 |          5 |         26 |
+| /home/luispedro/Documents/V-Semester/DSD/Wizard-of-Wor/init_win.c   | C        |         78 |         19 |         26 |        123 |
+| /home/luispedro/Documents/V-Semester/DSD/Wizard-of-Wor/init_win.h   | C++      |          7 |          0 |          3 |         10 |
+| /home/luispedro/Documents/V-Semester/DSD/Wizard-of-Wor/maps.c       | C        |        242 |         54 |         65 |        361 |
+| /home/luispedro/Documents/V-Semester/DSD/Wizard-of-Wor/maps.h       | C++      |         23 |          0 |          4 |         27 |
+| /home/luispedro/Documents/V-Semester/DSD/Wizard-of-Wor/start_game.c | C        |          5 |          0 |          1 |          6 |
+| /home/luispedro/Documents/V-Semester/DSD/Wizard-of-Wor/warrior.c    | C        |        354 |        103 |         62 |        519 |
+| /home/luispedro/Documents/V-Semester/DSD/Wizard-of-Wor/warrior.h    | C++      |         55 |          0 |          7 |         62 |
+| Total                                                               |          |      1,922 |        474 |        433 |      2,829 |
++---------------------------------------------------------------------+----------+------------+------------+------------+------------+
