@@ -84,6 +84,9 @@
 #define RND_MIN0 10
 #define RND_MAX0 20
 
+#define RND_MIN1 5
+#define RND_MAX1 15
+
 //blocks
 #define B_WIDTH 10
 #define B_HEIGHT 10
@@ -139,7 +142,7 @@
 #define MV_BLLT 5
 
 //Amount of enemies
-#define ENEMIES 1
+#define ENEMIES 6
 
 //Number of lives
 #define LIVES 4

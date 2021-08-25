@@ -36,6 +36,11 @@ struct enemy{
     int y_obj;
 
     bool search_wor;
+    bool visible;
+    time_t start_vsbl;
+    time_t finish_vsbl;
+    int vsbl_time;
+
 
     struct enemy *next_enemy;
 };
@@ -47,6 +52,7 @@ int set_dir();
 void set_sprite(int dir, struct enemy **enemy_pp);
 int random_range(int min, int max);
 void update_enemies();
+void update_visibility(struct enemy **enemy_pp);
 void move_enemy(struct enemy **enemy_pp);
 SDL_Rect map_radar(SDL_Rect pos);
 int map_x(float x);

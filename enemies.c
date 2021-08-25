@@ -94,6 +94,10 @@ struct enemy *init_enemy(SDL_Renderer **renderer_pp)
     new_enemy->x_obj = player->pos.x;
     new_enemy->y_obj = player->pos.y;
 
+    new_enemy->visible = true;
+    time(&new_enemy->start_vsbl);
+    new_enemy->vsbl_time = random_range(RND_MIN1, RND_MAX1);
+
     new_enemy->next_enemy = NULL;
 }
 
@@ -192,11 +196,28 @@ void update_enemies()
     struct step *step_tmp;
     while (enemy_ptr != NULL)
     {
+        update_visibility(&enemy_ptr);
         move_enemy(&enemy_ptr);
         enemy_ptr = enemy_ptr->next_enemy;
     }
 }
 
+/**
+ * Checks if visibility of enemy needs to be changed
+ */ 
+void update_visibility(struct enemy **enemy_pp){
+    struct enemy *enemy_ptr = *enemy_pp;
+    time_t start = enemy_ptr->start_vsbl;
+    time_t finish = enemy_ptr->finish_vsbl;
+    int timelapse = enemy_ptr->vsbl_time;
+    time(&finish);
+    if (difftime(finish, start) > timelapse && enemy_ptr == first_enemy)
+        {
+            time(&enemy_ptr->start_vsbl);
+            enemy_ptr->visible = !enemy_ptr->visible;
+        }
+    
+}
 /**
  * Move enemy depending on heuristic by manhattan distance
  * @param struct enemy **enemy_pp
@@ -550,7 +571,8 @@ void render_enemies(SDL_Renderer **renderer_pp)
     while (tmp != NULL)
     {
         pos = &tmp->pos;
-        SDL_RenderCopy(*renderer_pp, tmp->current_txtr, NULL, pos);
+        if (tmp->visible)
+            SDL_RenderCopy(*renderer_pp, tmp->current_txtr, NULL, pos);
         pos = &tmp->pos_rdr;
         SDL_RenderFillRect(*renderer_pp, pos);
         tmp = tmp->next_enemy;
